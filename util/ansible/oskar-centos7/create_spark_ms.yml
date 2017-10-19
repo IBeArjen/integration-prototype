@@ -1,0 +1,70 @@
+---
+# Set of Ansible plays to create Measurement Sets for the
+# example_spark_imager.py pipeline
+
+- hosts: all
+  become_method: sudo
+  tasks:
+
+    - name: Installing unzip
+      yum:
+        name: unzip
+        state: present
+      become: yes
+
+    - name: Download and unzip OSKAR example data
+      unarchive:
+        src: https://www.dropbox.com/s/fkgpkruj6vq1z4r/OSKAR-2.7-Example-Data.zip?dl=1
+        dest: .
+        remote_src: yes
+
+    - name: Un set options
+      command: oskar_sim_interferometer --set oskar_sim_interferometer.ini {{ item }}
+      args:
+        chdir: ./OSKAR-2.7-Example-Data
+      with_items:
+        - interferometer/oskar_vis_filename
+
+    - name: Set options
+      command: oskar_sim_interferometer --set oskar_sim_interferometer.ini {{ item }}
+      args:
+        chdir: ./OSKAR-2.7-Example-Data
+      with_items:
+        - telescope/input_directory telescope.tm
+        - interferometer/ms_filename example_1.ms
+        - observation/num_channels 1
+        - observation/start_frequency_hz 100e6
+        - sky/oskar_sky_model/file sky.osm
+
+    - name: Run example simulation
+      command: oskar_sim_interferometer oskar_sim_interferometer.ini
+      args:
+        chdir: ./OSKAR-2.7-Example-Data
+
+    # -------------------------------------------
+    - name: Set options
+      command: oskar_sim_interferometer --set oskar_sim_interferometer.ini {{ item }}
+      args:
+        chdir: ./OSKAR-2.7-Example-Data
+      with_items:
+        - interferometer/ms_filename example_2.ms
+        - observation/start_frequency_hz 110e6
+
+    - name: Run example simulation
+      command: oskar_sim_interferometer oskar_sim_interferometer.ini
+      args:
+        chdir: ./OSKAR-2.7-Example-Data
+
+    # -------------------------------------------
+    - name: Set options
+      command: oskar_sim_interferometer --set oskar_sim_interferometer.ini {{ item }}
+      args:
+        chdir: ./OSKAR-2.7-Example-Data
+      with_items:
+        - interferometer/ms_filename example_3.ms
+        - observation/start_frequency_hz 120e6
+
+    - name: Run example simulation
+      command: oskar_sim_interferometer oskar_sim_interferometer.ini
+      args:
+        chdir: ./OSKAR-2.7-Example-Data
