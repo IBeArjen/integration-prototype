@@ -1,0 +1,13 @@
+---
+# file: spark_pipeline.yml
+
+- hosts: all
+  tasks:
+  - pip:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - numpy
+      - astropy
+      - simplejson
+    become: yes

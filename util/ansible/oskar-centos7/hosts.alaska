@@ -1,0 +1,2 @@
+master ansible_host=10.60.253.30 ansible_user=centos
+slave ansible_host=10.60.253.18 ansible_user=centos

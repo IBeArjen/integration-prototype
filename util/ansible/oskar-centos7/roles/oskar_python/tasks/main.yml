@@ -19,5 +19,5 @@
   become: yes
 
 - pip:
-    name: file:///home/vagrant/oskar.git/python
+    name: file:///home/{{ ansible_user }}/oskar.git/python
   become: yes
