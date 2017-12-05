@@ -3,7 +3,7 @@
 
 Usage:
 
-    python3 tools/templates/create_initial_packages [-c | -d]
+    python3 tools/templates/create_initial_packages.py [-c | -d]
 
 """
 import argparse
