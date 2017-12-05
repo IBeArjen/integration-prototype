@@ -13,31 +13,31 @@ import jinja2
 
 
 
-def create_package(package_path, package_title, overwrite=False):
+def create_package(context, overwrite=False):
     """Create a SIP package from the Jinja2 tempalte directory package.j2
 
     Parameters
     ----------
-    package_path : str
-        Path of the package to create with sip. eg.
-        sip/execution_control/master_controller
-    package_title : str
-        Title of the Package. eg. Master Controller
+    context : dict
+        Jinja2 template context.
     overwrite : bool
         If true, overwrite any exiting files in the package_path
 
     """
     logger = logging.getLogger()
     logger.info('Creating Package from template:')
-    logger.info('- Path  : %s', package_path)
-    logger.info('- Title : %s', package_title)
+    logger.info('- Path  : %s', context['path'])
+    logger.info('- Title : %s', context['title'])
     loader = jinja2.FileSystemLoader(join(os.path.dirname(__file__), 'package.j2'))
     environment = jinja2.Environment(loader=loader)
-    context = dict(title=package_title, description=r'\[Add Description!\]')
+    if 'desc' not in context:
+        context['desc'] = r'\[FIXME: Add better description!\]'
+    if 'acronym' in context:
+        context['acronym'] = '({})'.format(context['acronym'])
     for template in environment.list_templates(extensions='j2'):
         filepath, filename = os.path.split(template)
         template = environment.get_template(template)
-        outpath = join(package_path, filepath, os.path.splitext(filename)[0])
+        outpath = join(context['path'], filepath, os.path.splitext(filename)[0])
         if not os.path.isdir(os.path.split(outpath)[0]):
             logger.debug('  - Creating directory : %s', os.path.split(outpath)[0])
             os.makedirs(os.path.split(outpath)[0])
@@ -71,7 +71,8 @@ def main():
         logger.setLevel(logging.DEBUG)
     else:
         logger.setLevel(logging.INFO)
-    create_package(args.PATH, args.TITLE, args.o)
+    context = dict(path=args.PATH, title=args.TITLE)
+    create_package(context, args.o)
 
 if __name__ == '__main__':
     main()

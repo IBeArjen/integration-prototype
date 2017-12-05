@@ -18,33 +18,45 @@ def packages():
     return [
         # Execution control
         {
-            'path': 'execution_control/master',
-            'title': 'Master Controller'
+            'path': 'execution_control/master_rpc',
+            'acronym': 'mc_rpc',
+            'title': 'Master Controller',
+            'desc': 'SDP Element Master with an RPC endpoint'
         },
         {
-            'path': 'execution_control/tango_master',
-            'title': 'Tango SDP Element Master'
+            'path': 'execution_control/master_tango',
+            'acronym': 'mc_tango',
+            'title': 'Tango SDP Element Master',
+            'desc': 'The SDP baseline Tango SDP Element Master'
         },
         {
-            'path': 'execution_control/processing_controller',
-            'title': 'Processing controller'
+            'path': 'execution_control/processing_control_rpc',
+            'acronym': 'pctl_rpc',
+            'title': 'RPC Processing Controller',
+            'desc': 'Processing controller with an RPC endpoint'
         },
         {
-            'path': 'execution_control/tango_processing_controller',
-            'title': 'Tango Processing controller'
+            'path': 'execution_control/processing_control_tango',
+            'acronym': 'pctl_tango',
+            'title': 'Tango Processing controller',
+            'desc': 'Tango Processing controller'
         },
         {
-            'path': 'execution_control/monitoring',
+            'path': 'execution_control/simple_monitoring_service',
+            'acronym': 'mon',
             'title': 'Monitoring Service'
         },
         {
-            'path': 'execution_control/config_service',
-            'title': 'Configuration Service'
+            'path': 'execution_control/simple_config_service',
+            'acronym': 'scs_redis',
+            'title': 'Simple Redis Configuration Service',
+            'desc': 'A simple Redis configuration service API'
         },
         # SDP Services
         {
-            'path': 'execution_control/quality_assessment',
-            'title': 'Quality Assessment Service'
+            'path': 'execution_control/quality_assessment_tango',
+            'acronym': 'qa_tango',
+            'title': 'Quality Assessment Service',
         },
 
     ]
@@ -53,9 +65,9 @@ def packages():
 def create_packages():
     """Create all specfied SIP Packages."""
     for package in packages():
-        _path = os.path.join('sip', package['path'])
-        print('--> Creating package: {}'.format(_path))
-        create_package(_path, package['title'], overwrite=False)
+        package['path'] = os.path.join('sip', package['path'])
+        print('--> Creating package: {}'.format(package['path']))
+        create_package(package, overwrite=False)
 
 def delete_packages():
     """Delete all specfied SIP Packages.
