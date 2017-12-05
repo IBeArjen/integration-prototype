@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Script to create initial set of SIP packages."""
+"""Script to create initial set of SIP packages.
+
+Usage:
+
+    python3 tools/templates/create_initial_packages [-c | -d]
+
+"""
 import argparse
 import shutil
 import os
@@ -49,7 +55,7 @@ def create_packages():
     for package in packages():
         _path = os.path.join('sip', package['path'])
         print('--> Creating package: {}'.format(_path))
-        create_package(_path, package['title'], overwrite=True)
+        create_package(_path, package['title'], overwrite=False)
 
 def delete_packages():
     """Delete all specfied SIP Packages.
@@ -65,10 +71,15 @@ def delete_packages():
 
 def main():
     """Main function."""
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser('Create or destroy initial set of SIP '
+                                     'packages.')
     parser.add_argument('-c', help="Create Pacakages", action='store_true')
-    parser.add_argument('-d', help="Create Pacakages", action='store_true')
+    parser.add_argument('-d', help="Delete Pacakages", action='store_true')
     args = parser.parse_args()
+    if args.c and args.d:
+        print('ERROR: Please select just one option, either -c or -d!')
+        return
+
     if args.c:
         create_packages()
     elif args.d:
