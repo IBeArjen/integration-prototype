@@ -1,0 +1,9 @@
+---
+package_root: ['sip', 'sdp_services']
+
+packages:
+
+  - title: Quality Assessment Service
+    path:  quality_assessment_tango
+    desc:  Quality Assessment Service (Tango device)
+    abbr:  qa_tango

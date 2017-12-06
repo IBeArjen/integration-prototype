@@ -9,57 +9,33 @@ Usage:
 import argparse
 import shutil
 import os
+from os.path import join
+import yaml
+import json
 
 from create_sip_package import create_package
 
 
 def packages():
-    """Returns a list of dictionaries describing the SIP packages."""
-    return [
-        # Execution control
-        {
-            'path': 'execution_control/master_rpc',
-            'acronym': 'mc_rpc',
-            'title': 'Master Controller',
-            'desc': 'SDP Element Master with an RPC endpoint'
-        },
-        {
-            'path': 'execution_control/master_tango',
-            'acronym': 'mc_tango',
-            'title': 'Tango SDP Element Master',
-            'desc': 'The SDP baseline Tango SDP Element Master'
-        },
-        {
-            'path': 'execution_control/processing_control_rpc',
-            'acronym': 'pctl_rpc',
-            'title': 'RPC Processing Controller',
-            'desc': 'Processing controller with an RPC endpoint'
-        },
-        {
-            'path': 'execution_control/processing_control_tango',
-            'acronym': 'pctl_tango',
-            'title': 'Tango Processing controller',
-            'desc': 'Tango Processing controller'
-        },
-        {
-            'path': 'execution_control/simple_monitoring_service',
-            'acronym': 'mon',
-            'title': 'Monitoring Service'
-        },
-        {
-            'path': 'execution_control/simple_config_service',
-            'acronym': 'scs_redis',
-            'title': 'Simple Redis Configuration Service',
-            'desc': 'A simple Redis configuration service API'
-        },
-        # SDP Services
-        {
-            'path': 'execution_control/quality_assessment_tango',
-            'acronym': 'qa_tango',
-            'title': 'Quality Assessment Service',
-        },
+    """Returns a list of dictionaries describing the SIP packages.
 
-    ]
+    This is obtained from loading YAML files.
+    """
+    _path = os.path.dirname(__file__)
+    config_path = join(_path, 'config')
+    config_files = [join(config_path, file)
+                    for file in os.listdir(config_path)
+                    if file.endswith('.yaml')]
+    package_list = []
+    for config_file in config_files:
+        with open(config_file, 'r') as stream:
+            data = yaml.load(stream)
+            root = data['package_root']
+            for package in data['packages']:
+                package['path'] = join(*root, package['path'])
+            package_list += data['packages']
+
+    return package_list
 
 
 def create_packages():
@@ -68,6 +44,7 @@ def create_packages():
         package['path'] = os.path.join('sip', package['path'])
         print('--> Creating package: {}'.format(package['path']))
         create_package(package, overwrite=False)
+
 
 def delete_packages():
     """Delete all specfied SIP Packages.
@@ -85,19 +62,25 @@ def main():
     """Main function."""
     parser = argparse.ArgumentParser('Create or destroy initial set of SIP '
                                      'packages.')
-    parser.add_argument('-c', help="Create Pacakages", action='store_true')
-    parser.add_argument('-d', help="Delete Pacakages", action='store_true')
+    parser.add_argument('-c', help="Create Packages", action='store_true')
+    parser.add_argument('-d', help="Delete Packages", action='store_true')
+    parser.add_argument('-l', help="List Packages", action='store_true')
     args = parser.parse_args()
     if args.c and args.d:
-        print('ERROR: Please select just one option, either -c or -d!')
+        print('ERROR: Please select just one option, either -c, -d or -l!')
         return
 
     if args.c:
         create_packages()
     elif args.d:
         delete_packages()
+    elif args.l:
+        for index, package in enumerate(packages()):
+            print('Package {:02d}'.format(index))
+            print(json.dumps(package, indent=2))
     else:
         parser.print_help()
+
 
 if __name__ == '__main__':
     main()

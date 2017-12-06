@@ -1,0 +1,37 @@
+# Execution control packages
+---
+package_root: ['sip', 'execution_control']
+
+packages:
+
+  # RPC (non tango) Packages
+  - title: RPC Master Controller Service
+    path:  master_rpc
+    desc:  SDP Element Master with an RPC endpoint
+    abbr:  mc_rpc
+
+  - title: RPC Processing Controller Service
+    path:  processing_control_rpc
+    desc:  Processing Controller with an RPC endpoint
+    abbr:  pctl_rpc
+
+  - title: Monitoring Service
+    path:  monitoring
+    desc:  Monitoring Service
+    abbr:  mon
+
+  - title: Simple Redis Configuration Service
+    path:  config_redis
+    desc:  A simple Redis configuration service API
+    abbr:  scs_redis
+
+  # TANGO Packages
+  - title: Tango Element Master Contoller Service
+    path:  master_tango
+    desc:  SDP baseine Element Master (Tango device)
+    abbr:  mc_tango
+
+  - title: Tango Processing Controller Service
+    path:  processing_control_tango
+    desc:  Processing Controller (Tango device)
+    abbr:  pctl_tango
