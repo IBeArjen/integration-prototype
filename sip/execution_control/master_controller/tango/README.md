@@ -18,3 +18,7 @@ the SKA control systems guidelines and SDP-TM ICDs.
 
 ## Dependencies
 
+## References
+
+1. [Tango-Controls documentation](http://tango-controls.readthedocs.io/en/latest/)
+1. [PyTango documentation](http://pytango.readthedocs.io/en/stable/)
