@@ -1,4 +1,4 @@
-# {{ title }} {{ abbr }}
+# Processing Controller Service
 
 ## Purpose
 
@@ -9,4 +9,6 @@
 ## Required Interfaces
 
 ## Dependencies
+
+## References
 

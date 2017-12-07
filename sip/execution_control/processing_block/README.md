@@ -1,4 +1,4 @@
-# {{ title }} {{ abbr }}
+# Processing Block Controller 
 
 ## Purpose
 
@@ -9,4 +9,3 @@
 ## Required Interfaces
 
 ## Dependencies
-

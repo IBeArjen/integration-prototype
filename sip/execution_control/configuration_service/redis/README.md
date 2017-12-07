@@ -1,4 +1,4 @@
-# {{ title }} {{ abbr }}
+# Redis Configuration Service 
 
 ## Purpose
 
@@ -9,4 +9,3 @@
 ## Required Interfaces
 
 ## Dependencies
-

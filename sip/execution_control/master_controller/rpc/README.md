@@ -2,8 +2,8 @@
 
 ## Purpose
 
-This implementation of SIP master controller emulates the SDP/TM command interface
-with RPyC.
+This implementation of SIP master controller emulates the SDP-TM command
+interface with RPyC.
 
 It implements the "Master Controller" component of the SDP architecture.
 
@@ -23,7 +23,8 @@ The following functions are exposed with RPyC on port ####:
 - offline()
 - shutdown()
 - attribute_value = get_attribute(attribute_name)
-- processing_block_id = create_processing_device(processing_type, subarray, observing_block)
+- processing_block_id = create_processing_device(processing_type,
+  subarray, observing_block)
 
 ## Required interfaces
 
@@ -31,8 +32,7 @@ processing block controller
 
 ## Dependencies
 
-python packages:
+Python packages:
 - logging
 - rpyc
 - dockerpy
-

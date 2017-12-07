@@ -5,51 +5,37 @@ sip:
   execution_control:
 
     # Master Controller
-    master:
+    master_controller:
       title: Master Controller Service
 
       rpc:
-        title: RPC Master Controller Service
-        desc:
-        abbr: master_rpc
+        title: Master Controller (RPyC flavour)
 
       tango:
-        title: Tango Element Master
-        desc:
-        abbr: master_tango
+        title: Master Controller (Tango Element Master)
 
     # Processing Controller
     processing_controller:
       title: Processing Controller Service
 
+
+    # Processing Block
+    processing_block:
+      title: Processing Block Controller
+
       rpc:
-        title: RPC Processing Controller Service
-        desc:
-        abbr: pctl_rpc
+        title: Processing Block (RPyC flavour)
 
       tango:
-        title: Tango Processing Controller
-        desc:
-        abbr: pctl_tango
-
-    # Processing Block Controller
-    processing_block_controller:
-      title: Processing Block Controller
-      desc:
-      abbr:
+        title: Processing Block (Tango device server)
 
     # Tango Logger
     tango_logger:
       title: Element Tango Logger
-      desc:
-      abbr: tango_logger
-
 
     # Monitoring Service
     monitoring_service:
       title: Monitoring service
-      desc:
-      abbr: sdp_mon
 
     # Configuration Service
     configuration_service:
@@ -57,5 +43,3 @@ sip:
 
       redis:
         title: Redis Configuration Service
-        desc: Simple Configuration service using Redis
-        abbr: config_redis

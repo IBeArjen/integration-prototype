@@ -22,3 +22,4 @@ Groups packages related to the control and monitoring of SDP.
 
 1. [SDP System-level Module decomposition View](http://bit.ly/sdp_system_level_module_view)
 1. [SDP System-level Component and Connector View](http://bit.ly/sdp_system_cc_view)
+1. [SDP-TM Tango interfaces diagram version 06/12/17](https://drive.google.com/uc?id=1Pp96owTtlzOzmGxRaQTqfL21NMVfWUdf)
