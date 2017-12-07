@@ -13,7 +13,7 @@ import jinja2
 
 
 
-def create_package(context, overwrite=False):
+def create_package(path, context, overwrite=False):
     """Create a SIP package from the Jinja2 tempalte directory package.j2
 
     Parameters

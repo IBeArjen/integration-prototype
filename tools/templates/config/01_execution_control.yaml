@@ -1,37 +1,61 @@
 # Execution control packages
 ---
-package_root: ['sip', 'execution_control']
+sip:
 
-packages:
+  execution_control:
 
-  # RPC (non tango) Packages
-  - title: RPC Master Controller Service
-    path:  master_rpc
-    desc:  SDP Element Master with an RPC endpoint
-    abbr:  mc_rpc
+    # Master Controller
+    master:
+      title: Master Controller Service
 
-  - title: RPC Processing Controller Service
-    path:  processing_control_rpc
-    desc:  Processing Controller with an RPC endpoint
-    abbr:  pctl_rpc
+      rpc:
+        title: RPC Master Controller Service
+        desc:
+        abbr: master_rpc
 
-  - title: Monitoring Service
-    path:  monitoring
-    desc:  Monitoring Service
-    abbr:  mon
+      tango:
+        title: Tango Element Master
+        desc:
+        abbr: master_tango
 
-  - title: Simple Redis Configuration Service
-    path:  config_redis
-    desc:  A simple Redis configuration service API
-    abbr:  scs_redis
+    # Processing Controller
+    processing_controller:
+      title: Processing Controller Service
 
-  # TANGO Packages
-  - title: Tango Element Master Contoller Service
-    path:  master_tango
-    desc:  SDP baseine Element Master (Tango device)
-    abbr:  mc_tango
+      rpc:
+        title: RPC Processing Controller Service
+        desc:
+        abbr: pctl_rpc
 
-  - title: Tango Processing Controller Service
-    path:  processing_control_tango
-    desc:  Processing Controller (Tango device)
-    abbr:  pctl_tango
+      tango:
+        title: Tango Processing Controller
+        desc:
+        abbr: pctl_tango
+
+    # Processing Block Controller
+    processing_block_controller:
+      title: Processing Block Controller
+      desc:
+      abbr:
+
+    # Tango Logger
+    tango_logger:
+      title: Element Tango Logger
+      desc:
+      abbr: tango_logger
+
+
+    # Monitoring Service
+    monitoring_service:
+      title: Monitoring service
+      desc:
+      abbr: sdp_mon
+
+    # Configuration Service
+    configuration_service:
+      title: Configuration Service
+
+      redis:
+        title: Redis Configuration Service
+        desc: Simple Configuration service using Redis
+        abbr: config_redis
