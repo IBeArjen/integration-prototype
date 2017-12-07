@@ -4,7 +4,7 @@
 
 Groups software packages that provide lower level, non-domain specific
 computing platform support services. It is expected that it will be
-implmented mostly using configured COTS packages.
+implemented mostly using configured COTS packages.
 
 It provides the implementation of resource and service provisioning,
 data queues, configuration and coordination, and logging.
@@ -21,11 +21,11 @@ data queues, configuration and coordination, and logging.
 ### Compute Provisioning
 
 Provides the compute infrastructure to SDP modules to run applications in
-certain environments. This will encompas machanisms for software defined
+certain environments. This will encompass mechanisms for software defined
 infrastructure management (IaaS), hardware configuration and management,
 deployment automation as well as inventory management.
 
-### Storage Provisoning
+### Storage Provisioning
 
 Provides the storage infrastructure to SDP modules. Storage may use
 block, file or object technology.
@@ -48,10 +48,10 @@ calibration solutions, alerts and QA data.
 
 ### Configuration & Coordination
 
-High availiable database storing SDP configuration information. Used
+High available database storing SDP configuration information. Used
 for coordinating platform-wide behaviour, such as registry/discovery,
 orchestration as well as to provide a consistent picture of the SDP state.
-Should support scalable guaranteeed notifications on configuration changes.
+Should support scalable guaranteed notifications on configuration changes.
 
 ### Logging and Health
 
