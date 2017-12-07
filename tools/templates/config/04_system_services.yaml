@@ -1,0 +1,9 @@
+# System services
+---
+package_root: ['sip', 'system_services']
+
+packages:
+  - title:
+    path:
+    desc:
+    abbr:

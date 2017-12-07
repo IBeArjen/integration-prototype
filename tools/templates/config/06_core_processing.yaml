@@ -1,0 +1,9 @@
+# Core processing
+---
+package_root: ['sip', 'core_processing']
+
+packages:
+  - title:
+    path:
+    desc:
+    abbr:

@@ -10,10 +10,33 @@ import argparse
 import shutil
 import os
 from os.path import join
-import yaml
 import json
 
+import yaml
+
 from create_sip_package import create_package
+
+
+def is_package_valid(package):
+    """Returns true if a package is valid.
+
+    This is based on a list of required fields that need to exist and not be
+    empty.
+
+    Parameters
+    ----------
+    package : dict
+        Package dictionary.
+    """
+    fields = ['title', 'path', 'desc', 'abbr']
+    for field in fields:
+        if not field in package:
+            print('  * Found package with missing field: {}'.format(field))
+            return False
+        if package[field] is None:
+            print('  * Found package with empty field: {}'.format(field))
+            return False
+    return True
 
 
 def packages():
@@ -24,17 +47,24 @@ def packages():
     _path = os.path.dirname(__file__)
     config_path = join(_path, 'config')
     config_files = [join(config_path, file)
-                    for file in os.listdir(config_path)
+                    for file in sorted(os.listdir(config_path))
                     if file.endswith('.yaml')]
-    package_list = []
+    package_list = list()
     for config_file in config_files:
+        print('> Loading config:', config_file)
+        package_count = 0
         with open(config_file, 'r') as stream:
             data = yaml.load(stream)
             root = data['package_root']
+            if 'packages' not in data or data['packages'] is None:
+                print('  - WARNING: No packages found, skipping.')
+                continue
             for package in data['packages']:
-                package['path'] = join(*root, package['path'])
-            package_list += data['packages']
-
+                if is_package_valid(package):
+                    package['path'] = join(*root, package['path'])
+                    package_list.append(package)
+                    package_count += 1
+        print('  - {:d} Packages loaded'.format(package_count))
     return package_list
 
 
