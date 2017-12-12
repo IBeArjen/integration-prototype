@@ -1,6 +1,8 @@
-# Processing Block (RPyC flavour) 
+# Element Tango Logger 
 
 ## Purpose
+
+Tango logging service.
 
 ## Responsibilities
 

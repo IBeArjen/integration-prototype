@@ -1,30 +1,12 @@
 # Platform services
 ---
-package_root: ['sip', 'platform_services']
+sip:
 
-packages:
+  platform_services:
 
-  - title: Logstach Service
-    path:  logstash
-    desc:  Logstash Logging Service
-    abbr:  logstash
+    # Configuration Service
+    configuration_service:
+      title: Configuration Service
 
-  - title: Elasticsearch DB service
-    path:  elasticsearch
-    desc:  Elasticsearch Logging DB Service
-    abbr:  elasticsearch
-
-  - title: Logspout Service
-    path:  logspout
-    desc:  Logspout Logging Service
-    abbr:  logspout
-
-  - title: Kibana Service
-    path:  kibana
-    desc:  Kibana Logging Service
-    abbr:  kibana
-
-  - title:
-    path:
-    desc:
-    abbr:
+      redis:
+        title: Redis Configuration Service

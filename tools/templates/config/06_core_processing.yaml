@@ -1,9 +1,11 @@
 # Core processing
 ---
-package_root: ['sip', 'core_processing']
+sip:
 
-packages:
-  - title:
-    path:
-    desc:
-    abbr:
+  core_processing:
+
+    processing_components:
+      title: Processing Library
+
+    receive:
+      title: Receive Library

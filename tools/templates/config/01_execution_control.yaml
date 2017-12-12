@@ -14,32 +14,17 @@ sip:
       tango:
         title: Master Controller (Tango Element Master)
 
-    # Processing Controller
-    processing_controller:
-      title: Processing Controller Service
-
-
-    # Processing Block
-    processing_block:
-      title: Processing Block Controller
-
-      rpc:
-        title: Processing Block (RPyC flavour)
-
-      tango:
-        title: Processing Block (Tango device server)
-
-    # Tango Logger
-    tango_logger:
-      title: Element Tango Logger
-
     # Monitoring Service
-    monitoring_service:
+    monitoring:
       title: Monitoring service
 
-    # Configuration Service
-    configuration_service:
-      title: Configuration Service
+    # Processing Controller Service
+    processing_controller:
+      title: Processing Controller
 
-      redis:
-        title: Redis Configuration Service
+      rpc:
+        title: Processing Controller (RPyC flavour)
+
+      tango:
+        title: Processing Controller (Tango device server)
+
