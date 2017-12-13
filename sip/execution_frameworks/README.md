@@ -13,16 +13,8 @@ very little, if any actual code.***
 
 **Contains:**
 
-- Execution Framework Interface
-- Execution Framework Implementations (if not COTS)
+- Execution Framework Implementations (if not purely off-the-shelf)
 - Processing Wrappers
-
-### Execution Framework Interface
-
-Provides a common interface to manage the interaction between the Processing
-Controller and Execution Framework implementations.
-
-*NOTE(BM): This sounds like it should sit in the execution_control?!*
 
 ### Execution Framework Implementations
 
@@ -38,4 +30,4 @@ Framework.
 Wraps Processing Components, Receive and SDP service interfaces for SDP
 Science Pipeline Workflows and the Execution Framework Implementation.
 
-*NOTE(BM): The description in the module decomposition view is concerning.*
+*NOTE(BM): The description in the module decomposition view needs review.*

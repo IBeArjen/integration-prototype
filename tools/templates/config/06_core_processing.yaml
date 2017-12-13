@@ -4,8 +4,5 @@ sip:
 
   core_processing:
 
-    processing_components:
-      title: Processing Library
-
     receive:
       title: Receive Library

@@ -1,15 +1,5 @@
 # Execution Frameworks
 ---
-package_root: ['sip', 'execution_framework']
+sip:
+  execution_frameworks:
 
-packages:
-
-  - title: Execution Framework Interface Service
-    path: exec_framework_interface
-    desc: Execution Framework Interface Service
-    abbr: ef_interface
-
-  - title:
-    path:
-    desc:
-    abbr:
