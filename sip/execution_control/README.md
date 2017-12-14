@@ -8,7 +8,6 @@ Groups packages related to the control and monitoring of SDP.
 
 - Master Controller
 - Processing Control
-- Monitoring
 
 ## Reference figures
 

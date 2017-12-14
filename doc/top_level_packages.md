@@ -6,7 +6,7 @@ below:
 
 ### `core_processing`
 
-This package contains a **library** of core domain-specific low level functions 
+This package contains a library of core domain-specific low level functions 
 needed to construct the data processing and data receive pipelines and 
 workflows.
 
@@ -16,9 +16,9 @@ will evolve over time as new functions are identified and added.
 
 ##### NOTE
 
-In the SIP code found in this repository, do not expect there will be many 
-modules in this package as we are using the ARL library \[2] to provide almost
-all of the functionality of this package.
+- In the SIP code found in this repository, do not expect there will be many 
+  modules in this package as we are using the ARL library \[2] to provide almost
+  all of the functionality of this package.
 
 
 ### `data_models`
@@ -30,10 +30,10 @@ types or different versions.
 
 ##### NOTE
 
-In SIP code as we are using ARL to provide most, if not all of the 
-`core_processing` functionality it is very likely that we will have to adopt
-data models from ARL and therefore potentially deviate from those in the SDP
-architecture. This should be reviewed over time.
+- In SIP code as we are using ARL to provide most, if not all of the 
+  `core_processing` functionality it is very likely that we will have to adopt
+  data models from ARL and therefore potentially deviate from those in the SDP
+  architecture. This should be reviewed over time.
 
 
 ### `execution_control`
@@ -45,9 +45,13 @@ container orchestration framework such as Docker Swarm.
 
 ##### NOTE
 
-We are still lacking detailed design of several sub-packages in this area, in
-particular around the Processing Controller and how messages, such as commands, 
-are sent between services.
+- We are still lacking detailed design of several sub-packages in this area, in
+  particular around the Processing Controller and how messages, such as 
+  commands, are sent between services.
+
+- The separation between packages in `platform_services`, `sdp_services`, 
+  and `execution_control` is still fairly poorly defined in the SDP 
+  architecture so some packages may move between these in future. 
 
 
 ### `execution_framework_interface`
@@ -59,10 +63,10 @@ the particular Execution Framework implementation being run against.
 
 ##### NOTE
 
-In a microservices architecture this library could, and probably should,
-be developed as part of the Processing controller service as it will not be
-used elsewhere. We are including it in SIP as a separate package to be 
-consistent with the SDP architecture. 
+- In a microservices architecture this library could, and probably should,
+  be developed as part of the Processing controller service as it will not be
+  used elsewhere. We are including it in SIP as a separate package to be 
+  consistent with the SDP architecture. 
 
 
 ### `execution_frameworks`
@@ -78,22 +82,23 @@ for use by Science Pipeline Workflows.
 
 ##### NOTE
 
-The SIP definition of an Execution Framework is:
+- The SIP definition of an Execution Framework is:
 
-> Library API (as associated runtime) responsible for execution of distributed
-> Science Pipeline Workflows on a set of allocated, provisioned compute 
-> resources.
->
-> An execution framework provides an API for building high performance parallel
-> workflow applications, by providing support for communication of data between
-> processing resources connected to a fast, low-latency network, and support 
-> for in-memory computing operations. The memory model provided by this API 
-> should not preclude the use of accelerators (eg. GPUs).
+    > Library API (as associated runtime) responsible for execution of 
+    > distributed Science Pipeline Workflows on a set of allocated, provisioned
+    > compute resources.
+    >
+    > An execution framework provides an API for building high performance 
+    > parallel workflow applications, by providing support for communication 
+    > of data between processing resources connected to a fast, low-latency 
+    > network, and support for in-memory computing operations. The memory model
+    > provided by this API should not preclude the use of accelerators 
+    > (eg. GPUs).
 
-In SIP we do not expect to have much, if any, code in this package as we are 
-initially focusing on entirely off-the-shelf execution frameworks and do not
-have any need for processing wrappers for the small number of example 
-Science Pipeline Workflows we are developing.
+- In SIP we do not expect to have much, if any, code in this package as we are 
+  initially focusing on entirely off-the-shelf execution frameworks and do not
+  have any need for processing wrappers for the small number of example 
+  Science Pipeline Workflows we are developing.
 
 ### `pipeline_workflows`
 
@@ -105,16 +110,45 @@ Processing Wrappers provided by the Execution Framework implementation.
 
 ##### NOTE
 
-In the SIP code we expect to have a small number of example demonstration 
-pipeline workflows in this package whose main role is to provide a platform 
-for exercising interfaces with services in the SIP SDP software stack. 
+- In the SIP code we expect to have a small number of example demonstration 
+  pipeline workflows in this package whose main role is to provide a platform 
+  for exercising interfaces with services in the SIP SDP software stack. 
 
 ### `platform_services`
 
+This package groups sub-packages which provide non-domain specific
+services. It is expected that this will be implemented mostly using configured 
+off-the-shelf components.
 
+##### NOTE
+
+- The separation between packages in `platform_services`, `sdp_services`, 
+  and `execution_control` is still fairly poorly defined in the SDP 
+  architecture so some packages may move between these in future. 
 
 ### `sdp_services`
+
+This package groups sub-packages which provide domain-specific services. These
+will be constructed from a combination of configured off-the-shelf components 
+and custom SDP specific modules. 
+
+##### NOTE
+
+- The separation between packages in `platform_services`, `sdp_services`, 
+  and `execution_control` is still fairly poorly defined in the SDP 
+  architecture so some packages may move between these in future. 
+
+
 ### `system_services`
+
+This package contains sub-packages which provide libraries for common APIs
+used bu all SDP modules. Extreme care should be taken in code within this 
+package as it could have impact on all other modules.
+
+##### NOTE
+
+- In SIP we do not expect to have any code in this package as we will be using
+  entirely standard packages and modules which do not need a customisation.
 
 
 ## References
