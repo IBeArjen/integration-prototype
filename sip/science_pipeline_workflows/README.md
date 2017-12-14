@@ -2,10 +2,16 @@
 
 ## Description
 
-Data-driven pipelines configured by Processing Blocks, expressed in terms of a
-language as executed by the Workflow Engine using an Execution Framework.
+This package will contain a set of Science Pipeline Workflows applications.
 
-Specifies the steps necessary to execute a data-driven workflow, which will
+Science Pipeline Workflows are data driven workflows, expressed in a terms of 
+an Execution Framework API and make use of Core Processing functions or 
+Processing Wrappers provided by the Execution Framework implementation.  
+
+Science Pipeline workflows will be executed by the Workflow Engine 
+(*in the Processing Controller?*) using an Execution Framework runtime.
+
+The expected steps necessary to execute a data-driven workflow, will
 typically involve:
 
 - Configuring the buffer to provide required Data Islands
@@ -17,5 +23,7 @@ typically involve:
 - Update the Science Data Product Catalogue in the Data Preparation and
   Delivery
 
-*NOTE(BM): I'm not sure all of the functions listed above from the SDP module
-view is entirely clear.*
+***Note: In the SIP code we expect to have a small number of example 
+demonstration pipeline workflows in this package whose main role is to 
+provide a platform for exercising interfaces with services in the SIP SDP 
+software stack.***

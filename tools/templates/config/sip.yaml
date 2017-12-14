@@ -1,0 +1,114 @@
+---
+sip:
+  # Core Processing Library
+  core_processing:
+
+  # Data Model Library
+  data_models:
+
+  # Execution Control Services
+  execution_control:
+
+    master_controller:
+      title: Master Controller Service
+
+      rpc:
+        title: Master Controller (RPyC flavour)
+
+      tango:
+        title: Master Controller (Tango Element Master)
+
+    processing_controller:
+      title: Processing Controller
+
+      rpc:
+        title: Processing Controller (RPyC flavour)
+
+      tango:
+        title: Processing Controller (Tango device server)
+
+  # Execution Framework Interface Library
+  execution_framework_interface:
+
+  # Execution Frameworks Implementation Library
+  execution_frameworks:
+
+    dask:
+      title: Dask
+
+  # Platform (non-domain specific) Services
+  platform_services:
+
+    configuration:
+      title: Configuration Database Service
+
+    elk_logging:
+      title: Elastic stack Logging Service
+
+      elasticsearch:
+        title: Elasticsearch Service
+
+      kibana_logtrail:
+        title: Kibana + Logtrail Service
+
+      logspout:
+        title: Logspout Service
+
+      logstash:
+        title: Logstash service
+
+    monitoring:
+      title: Monitoring Service
+
+    tango_logger:
+      title: Tango Log Consumer Service
+
+  # Science Pipeline workflow application (scripts)
+  science_pipeline_workflows:
+
+    dask_ical_pipeline:
+      title: Dask ICAL pipeline
+
+    dask_spectropolarimetric_pipeline:
+      title: Dask Spectropolarimetric pipeline
+
+    spark_simple_imager:
+      title: Simple Imager using Apache Spark
+
+    mpi_simple_imager:
+      title: Simple Imager using Apache Spark
+
+    mpi_simple_imager:
+      title: Simple Imager using MPI
+
+    ingest_visibilties:
+      title: Visibility Ingest pipeline
+
+    ingest_puslar_serch:
+      title: Pulsar search Ingest pipeline
+
+  # SDP (domain specific) Services
+  sdp_services:
+
+    buffer_manager:
+      title: Buffer Manager Service
+
+    quality_assessment:
+      title: Quality Assessment Service
+
+      rpc:
+        title: Quality Assessment Service (RPyC flavour)
+
+      tango:
+        title: Quality Assessment Service (Tango device)
+
+    global_sky_model:
+      title: Global Sky Model Service
+
+    data_model:
+      title: Data Model Service
+
+  # Low level API Libraries (not services!)
+  system_services:
+
+

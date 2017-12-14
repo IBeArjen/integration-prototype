@@ -2,9 +2,14 @@
 
 ## Description
 
-Provides a common interface to manage the interaction between the Processing
-Controller and Execution Framework implementations.
+This package contains a library which provides a common interface to 
+execution frameworks. This library is used by the Processing Controller Service
+to run Science Pipeline workflows without having to know about the details of 
+the particular Execution Framework implementation being run against. 
 
-*NOTE(BM): This sounds like it could / should sit in the 
-execution_control Processing Controller service sub-package*
+***Note: In a microservices architecture, this library could, and probably 
+should, be developed as part of the Processing controller service as it will 
+not be used elsewhere. We are including it in SIP as a separate package to be 
+consistent with the SDP architecture.** 
+
 

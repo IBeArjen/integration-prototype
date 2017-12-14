@@ -14,10 +14,6 @@ sip:
       tango:
         title: Master Controller (Tango Element Master)
 
-    # Monitoring Service
-    monitoring:
-      title: Monitoring service
-
     # Processing Controller Service
     processing_controller:
       title: Processing Controller

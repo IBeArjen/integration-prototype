@@ -2,15 +2,16 @@
 
 ## Description
 
-Common interfaces in use by all SDP modules. Implementations are going to be
-managed by Platform services. As changes to these modules might impact the
-entire system, this should be restricted to well-established standard
-interfaces.
+This package contains sub-packages which provide libraries for common APIs
+used bu all SDP modules. Extreme care should be taken in code within this 
+package as it could have impact on all other modules.
 
-*NOTE(BM): The description above (taken from the module view) looks like
-it needs work.*
-*NOTE(BM): I don't think we want any code here in SIP if at all possible!
-- maybe the SIP base docker image?*
+***Note-1: In SIP we do not expect to have any code in this package as we will
+be using entirely standard packages and modules which do not need a 
+customisation.***
+
+***NOTE-2: The description in the SDP module view architecture document looks 
+like it needs work.***
 
 **Contains:**
 
@@ -24,14 +25,14 @@ it needs work.*
 Unix-like Operating System interface, offering baseline functionality such
 as memory and process management.
 
-*NOTE(BM) ... !*
+***NOTE(BM) There will be no SIP code in this (proposed) sub-package.***
 
 ### Storage Interface
 
 Provides a common interface for access to storage. For example, Platform
 Services will be expected to provide a POSIX-like file interface to Buffer data.
 
-*NOTE(BM) ... Not sure this is useful or will stay.*
+***NOTE(BM) There will be no SIP code in this (proposed) sub-package.***
 
 ### Logging Interface
 
@@ -40,9 +41,7 @@ down system defects, root cause analysis, resource overconsumption etc.
 This module implements a generic interface that decouples the generation of
 logs from aggregation (see Logging and Health in Platform services).
 
-*NOTE(BM) ... Not sure this is useful in this view as logging is already
-captured in the Platform services sufficiently and will use standard
-technologies!***
+***NOTE(BM) There will be no SIP code in this (proposed) sub-package.***
 
 ### Accelerator Interfaces
 
@@ -50,8 +49,7 @@ Provides access to high-performance computing capabilities. This may involve
 standard parallel libraries such as OpenMP and OpenCL, but also more
 specialised libraries such as CUDA.
 
-*NOTE(BM) ... This has no place in the architecture unless we are developing
-our own interfaces which would be unadvisable*
+***NOTE(BM) There will be no SIP code in this (proposed) sub-package.***
 
 ## References
 

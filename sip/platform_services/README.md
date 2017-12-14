@@ -2,12 +2,13 @@
 
 ## Description
 
-Groups software packages that provide lower level, non-domain specific
-computing platform support services. It is expected that it will be
-implemented mostly using configured COTS packages.
+This package groups sub-packages which provide non-domain specific
+services. It is expected that this will be implemented mostly using configured 
+off-the-shelf components.
 
-It provides the implementation of resource and service provisioning,
-data queues, configuration and coordination, and logging.
+***Note: The separation between packages in `platform_services`, 
+`execution_control`, and `sdp_services` is still fairly poorly defined in the 
+SDP architecture so some packages here may move in the future. 
 
 **Contains:**
 

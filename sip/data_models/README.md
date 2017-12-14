@@ -2,13 +2,16 @@
 
 ## Description
 
-Groups the definitions and implementations of data representations, data
-formats and appropriate utility code.
+This package contains a library of modules which provide both in-memory and 
+buffer (file format) representations SDP data models. It will also contain
+functions and classes that support conversion between data formats of different
+types or different versions.
 
-It includes support for versioning and conversion between data formats
-and versions. It is composed of Buffer Data Models (file formats) and
-Memory Data Models (in-memory representations for processing components and
-queues)
+***Note: In SIP code as we are using ARL to provide most, if not all of the 
+`core_processing` functionality it is very likely that we will have to adopt
+data models from ARL and therefore potentially deviate from those in the SDP
+architecture. This should be reviewed over time against the SDP Data Model
+architecture view (below).***
 
 ## Reference Figures
 

@@ -2,10 +2,18 @@
 
 ## Description
 
-Groups packages that provide domain specific SDP services to support processing.
+This package groups sub-packages which provide domain-specific services. These
+will be constructed from a combination of configured off-the-shelf components 
+and custom SDP specific modules. A key role of these servies will be to support
+data processing workflows. 
 
-As this is a data-driven architecture, this especially concerns maintaining
-data items around the execution of Science Pipeline workflows.
+***Note-1: The separation between packages in `platform_services`, `sdp_services`, 
+and `execution_control` is still fairly poorly defined in the SDP 
+architecture so some packages may move between these in future.*** 
+
+***NOTE-2: At present, SIP will not prototype Product preparation and Delivery
+services, so not all of the SDP services here will be considered for the first 
+version of the prototype.***
 
 **Contains:**
 
@@ -15,10 +23,6 @@ data items around the execution of Science Pipeline workflows.
 - Model Database Services
 - Buffer Management Services
 - Data Queue Services
-
-***NOTE(BM): At present, SIP will not be concerned with prototyping Delivery
-and related services so not all of the SDP services will be considered for
-the first version of the prototype.***
 
 ### Product Preparation and Delivery
 

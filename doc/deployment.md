@@ -18,6 +18,4 @@ In deployment the SIP code falls into two categories:
 
 - **Capabilities**: Are the set of Pipeline Workflows *(see above)*
   or specialised applications that can be run by the system at a given time.
-
-
- 
+  

@@ -2,14 +2,19 @@
 
 ## Description
 
-Components responsible for the execution of compatible Science Pipeline
-Workflows.
+This package contains a set of libraries and associated runtime executables,
+where applicable, which provide the implementation of any custom (SDP specific)
+or modified off-the-shelf execution frameworks used by the SDP.
 
-The SDP will support multiple (independently developed and maintained)
-execution frameworks.
+This will also include `processing_wrappers` which wrap functions in the 
+`core_processing` library, customising them to a particular execution framework
+for use by Science Pipeline Workflows.
 
 ***NOTE(BM): In SIP code the expectation is that this package will contain
-very little, if any actual code.***
+very little, if any actual code as we be using entirely off-the-shelf 
+execution frameworks and not expecting to develop processing wrappers.
+The likely exception will be any Dockerfiles or provisioning scripts specific
+to a given Execution Framework.***
 
 **Contains:**
 

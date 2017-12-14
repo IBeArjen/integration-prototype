@@ -20,3 +20,4 @@ folder which can be categories into three main types:
   data to the rest of the system or subsequent stages of data processing.
 
  
+Each package should be self contained, documented and independently testable.

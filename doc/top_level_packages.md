@@ -6,7 +6,7 @@ below:
 
 ### `core_processing`
 
-This package contains a library of core domain-specific low level functions 
+This package contains a library of core, domain-specific, low level functions 
 needed to construct the data processing and data receive pipelines and 
 workflows.
 
@@ -39,7 +39,7 @@ types or different versions.
 ### `execution_control`
 
 This package groups all modules related to the control and monitoring of SDP.
-As such it is composed of a set of sub-packages, the majority of which are 
+It is composed of a set of sub-packages, the majority of which are 
 expected to be deployable as containerised services under control of a 
 container orchestration framework such as Docker Swarm.
 
@@ -100,12 +100,12 @@ for use by Science Pipeline Workflows.
   have any need for processing wrappers for the small number of example 
   Science Pipeline Workflows we are developing.
 
-### `pipeline_workflows`
+### `science_pipeline_workflows`
 
 This package will contain a set of Science Pipeline Workflows applications.
 
-Science Pipeline Workflows are data driven workflows expressed in a terms of 
-a Execution Framework API and making use of Core Processing functions or 
+Science Pipeline Workflows are data driven workflows, expressed in a terms of 
+an Execution Framework API and make use of Core Processing functions or 
 Processing Wrappers provided by the Execution Framework implementation.  
 
 ##### NOTE

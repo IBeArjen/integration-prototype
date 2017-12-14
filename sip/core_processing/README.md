@@ -2,12 +2,23 @@
 
 ## Description
 
-Libraries implementing core SDP-specific data processing.
+This package contains a library of core, domain-specific, low level functions 
+needed to construct the data processing and data receive pipelines and 
+workflows.
+
+Sub-packages in this folder are used (where appropriate) to divide modules into
+groups of functions with a common role. Sub-packages in this folder
+will evolve over time as new functions are identified and added.
 
 **Contains:**
 
 - Processing components library
 - Receive components library
+
+***NOTE: In SIP, most of the functions of the processing library will be 
+provided by ARL and therefore we do not expect very much code in this 
+package*** 
+
 
 ### Processing Library
 
