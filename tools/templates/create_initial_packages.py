@@ -7,10 +7,8 @@ Usage:
 
 """
 import argparse
-import shutil
 import os
 from os.path import join, dirname, split, splitext, isfile, isdir
-import json
 import logging
 
 import jinja2
@@ -35,6 +33,7 @@ def create_package(path, context, overwrite=False, add_tests=True,
         If True, don't actually create directories
     """
     logger = logging.getLogger()
+    logger.info('Creating package: %s', path)
     if dry_run:
         logger.setLevel(logging.DEBUG)
     loader = jinja2.FileSystemLoader(join(dirname(__file__), 'package.j2'))

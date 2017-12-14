@@ -1,8 +1,0 @@
-# Core processing
----
-sip:
-
-  core_processing:
-
-    receive:
-      title: Receive Library

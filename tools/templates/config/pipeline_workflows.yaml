@@ -1,5 +1,0 @@
-# Pipeline workflows
----
-package_root: ['sip', 'pipeline_workflows']
-
-packages:
