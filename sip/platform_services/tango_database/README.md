@@ -2,6 +2,8 @@
 
 ## Purpose
 
+Tango Host database service
+
 ## Responsibilities
 
 ## Provided Interfaces

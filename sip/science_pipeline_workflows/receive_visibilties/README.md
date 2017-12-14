@@ -1,8 +1,8 @@
-# Visibility Ingest pipeline 
+# Visibility Receive pipeline 
 
 ## Purpose
 
-Ingest visibilities from CSP.
+Receive visibilities from CSP.
 
 ## Responsibilities
 

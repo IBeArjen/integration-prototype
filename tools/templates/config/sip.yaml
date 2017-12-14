@@ -79,17 +79,20 @@ sip:
     dask_spectropolarimetric_pipeline:
       title: Dask Spectropolarimetric pipeline
 
-    spark_simple_imager:
-      title: Simple Imager using Apache Spark
-
-    mpi_simple_imager:
-      title: Simple Imager using Apache Spark
-
-    mpi_simple_imager:
-      title: Simple Imager using MPI
-
     ingest_visibilties:
       title: Visibility Ingest pipeline
+
+    mpi_simple_imager:
+      title: Simple Imager pipeline using MPI
+
+    receive_pulsar_search:
+      title: Pulsar search data receive pipeline
+
+    receive_visibilties:
+      title: Visibility data receive pipeline
+
+    spark_simple_imager:
+      title: Simple Imager pipeline using Apache Spark
 
     ingest_puslar_serch:
       title: Pulsar search Ingest pipeline

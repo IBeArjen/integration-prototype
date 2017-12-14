@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Tango logging service.
+Tango logging consumer service.
 
 ## Responsibilities
 

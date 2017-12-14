@@ -2,6 +2,8 @@
 
 ## Purpose
 
+Tango SDP Alarms Handler device
+
 ## Responsibilities
 
 ## Provided Interfaces

@@ -2,6 +2,8 @@
 
 ## Purpose
 
+SDP Tango TelModel device. 
+
 ## Responsibilities
 
 ## Provided Interfaces

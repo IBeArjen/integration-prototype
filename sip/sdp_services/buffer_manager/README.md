@@ -2,6 +2,8 @@
 
 ## Purpose
 
+Service to manages the SDP data buffer(s).
+
 ## Responsibilities
 
 ## Provided Interfaces

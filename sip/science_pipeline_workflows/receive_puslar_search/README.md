@@ -1,8 +1,8 @@
-# Visibility Ingest pipeline 
+# Pulsar search data receive pipeline 
 
 ## Purpose
 
-Ingest visibilities from CSP.
+Pulsar search receive pipeline
 
 ## Responsibilities
 
@@ -12,6 +12,6 @@ Ingest visibilities from CSP.
 
 ## Required Interfaces
 
-- CSP visibility data SPEAD stream.
+- CSP Pulsar search data stream
 
 ## Dependencies

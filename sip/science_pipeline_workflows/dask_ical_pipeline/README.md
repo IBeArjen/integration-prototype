@@ -2,6 +2,8 @@
 
 ## Purpose
 
+Placeholder for SIP Dask ICAL Pipeline
+
 ## Responsibilities
 
 ## Provided Interfaces
