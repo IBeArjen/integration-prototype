@@ -16,7 +16,7 @@ sip:
         title: Master Controller (RPyC flavour)
 
       tango:
-        title: Master Controller (Tango Element Master)
+        title: Tango Element Master
 
     processing_controller:
       title: Processing Controller
@@ -25,7 +25,7 @@ sip:
         title: Processing Controller (RPyC flavour)
 
       tango:
-        title: Processing Controller (Tango device server)
+        title: Tango Processing Controller
 
   # Execution Framework Interface Library
   execution_framework_interface:
@@ -63,6 +63,13 @@ sip:
     tango_logger:
       title: Tango Log Consumer Service
 
+    tango_starter:
+      title: Tango Starter Service
+
+    tango_database:
+      title: Tango Host Database Service
+
+
   # Science Pipeline workflow application (scripts)
   science_pipeline_workflows:
 
@@ -90,8 +97,17 @@ sip:
   # SDP (domain specific) Services
   sdp_services:
 
+    alarms_handler:
+      title: Alarms Handler Service
+
     buffer_manager:
       title: Buffer Manager Service
+
+    data_model:
+      title: Data Model Service
+
+    global_sky_model:
+      title: Global Sky Model Service
 
     quality_assessment:
       title: Quality Assessment Service
@@ -100,13 +116,11 @@ sip:
         title: Quality Assessment Service (RPyC flavour)
 
       tango:
-        title: Quality Assessment Service (Tango device)
+        title: Tango Quality Assessment Service
 
-    global_sky_model:
-      title: Global Sky Model Service
+    telescope_model:
+      title: Tango SDP Telescope model Service
 
-    data_model:
-      title: Data Model Service
 
   # Low level API Libraries (not services!)
   system_services:

@@ -17,7 +17,7 @@ It implements the "Master Controller" component of the SDP architecture.
 
 ## Provided interfaces
 
-The following functions are exposed with RPyC on port ####:
+The following functions are exposed with RPyC on port *\[TBD]*:
 
 - online()
 - offline()
@@ -28,11 +28,15 @@ The following functions are exposed with RPyC on port ####:
 
 ## Required interfaces
 
-processing block controller
+- processing block controller
+
+*NOTE(BM): Need to consider this carefully as hopefully we don't **need** the 
+processing controller to run this service. If so required interfaces will be 
+none*
 
 ## Dependencies
 
 Python packages:
-- logging
+
 - rpyc
-- dockerpy
+- dockerpy *Note(BM): will this still be needed after the refactor?*

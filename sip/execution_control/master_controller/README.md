@@ -11,14 +11,17 @@ guidelines document.
 ## Responsibilities
 
 - Entry-point to TM to retrieve high level information on the system
+
 - Primary point of control (interface to TM) for general SDP
   operations
+
 - Provides rolled-up monitoring and reporting as well as overall SDP
   status. This is provided though a number of state attributes.
     - ***state***:
     - ***adminMode***:
     - ***healthState***:
     - ***obsState***:
+
 - Exposes a command interface to TM which includes, but is not limited
   to, the following commands defined in ICDs (§5.1.4.4), SKA control
   system guidelines, and SKA Tango Developers guide, (§6.10):
@@ -32,6 +35,8 @@ guidelines document.
     - ***get_capacity***: *Defined in the SDP-TM ICDs*
     - ***new_processing_block***: *Defined in the SDP-TM ICDs*
     - ***delete_processing_block***: *Defined in the SDP-TM ICDs*
+    
+- **TBD: Sub-array interface?**
 
 ## References
 
