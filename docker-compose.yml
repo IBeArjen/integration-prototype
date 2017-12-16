@@ -21,12 +21,12 @@ services:
       context: sip/execution_control/master_controller/rpyc
       dockerfile: Dockerfile
 
-#  # Master Controller (REST)
-#  master_controller_rest:
-#    image: skasip/master_rest
-#    build:
-#      context: sip/execution_control/master_controller/rest
-#      dockerfile: Dockerfile
+  # Master Controller (REST)
+  master_controller_rest:
+    image: skasip/master_rest
+    build:
+      context: sip/execution_control/master_controller/rest
+      dockerfile: Dockerfile
 
 #  # Processing Controller
 #  processing_controller:
