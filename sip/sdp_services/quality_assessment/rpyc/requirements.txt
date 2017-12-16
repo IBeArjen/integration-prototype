@@ -1,0 +1,4 @@
+# Requirements for quality_assessment/rpyc
+
+# For the RPyC interface
+rpyc>=3.3.0

@@ -37,3 +37,9 @@ services:
 
 
 
+  # Master Controller (RPyC)
+  quality_assessment_rpyc:
+    image: skasip/qa_rpyc
+    build:
+      context: sip/sdp_services/quality_assessment/rpyc
+      dockerfile: Dockerfile

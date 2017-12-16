@@ -12,6 +12,9 @@ sip:
     master_controller:
       title: Master Controller Service
 
+      rest:
+        title: Master Controller (REST flavour)
+
       rpyc:
         title: Master Controller (RPyC flavour)
 
@@ -21,7 +24,7 @@ sip:
     processing_controller:
       title: Processing Controller
 
-      rpc:
+      rpyc:
         title: Processing Controller (RPyC flavour)
 
       tango:
@@ -115,7 +118,7 @@ sip:
     quality_assessment:
       title: Quality Assessment Service
 
-      rpc:
+      rpyc:
         title: Quality Assessment Service (RPyC flavour)
 
       tango:

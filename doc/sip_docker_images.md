@@ -29,8 +29,11 @@ SIP images are prefixed with `skasip/`
 The current list of SIP images is:
 
 - `skasip/master_rpyc`<br> 
-   The Master Controller with an RPyC Service interface.
+   The Master Controller Service with an RPyC interface.
  
 - `skasip/master_rest`<br>
-  The Master Controller with a REST interface.
+  The Master Controller Service with an REST interface.
+
+- `skasip/qa_rpyc`<br>
+  The Quality Assessment Service with an RPyC interface.
 
