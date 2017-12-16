@@ -15,9 +15,8 @@ RUN apk update && \
     rm -r /root/.cache && \
     apk del build-dependencies
 
-
 # REST endpoint
-EXPOSE 12345
+EXPOSE 5555
 
 # Working directory
 WORKDIR /app

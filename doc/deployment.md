@@ -48,9 +48,29 @@ For arguments and options run the script with no arguments or use the `-h`
 flag.
 
 
-***TODO(BM)***
-1. Description of single engine stack using with  `docker-compose up -d`
+All SIP Docker services can be started with the single command: 
 
+```bash
+docker-compose up -d
+```
+
+All running SIP services can be then stopped with the single command:
+
+```bash
+docker-compose stop
+```
+
+or 
+
+```bash
+docker-compose kill
+```
+
+All finished SIP service containers can then be removed with the command:
+
+```bash
+docker-compose rm [-f]
+```
 
 ### Docker Swarm mode
 

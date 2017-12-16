@@ -6,10 +6,11 @@
 SIP docker images can be build with the `docker-compose.yml` script
 found in the top level directory of the repository.
 
-To build all SIP images use the following command:
+To build all SIP images use the following command(s):
 
 ```bash
 docker-compose build
+docker-compose -f docker-compose_rest.yml build
 ```
 
 or to build an individual images:

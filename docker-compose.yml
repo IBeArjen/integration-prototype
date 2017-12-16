@@ -1,18 +1,11 @@
 #
 # Usage:
-#   docker-compose build -e TAG=<latest> [service name]
+#   docker-compose build [service name]
 #
 
 version: '3.3'
 
 services:
-
-#  # SIP Base image
-#  sip_base:
-#    image: skasip/sip_base:${TAG}
-#    build:
-#      context: .
-#      dockerfile: docker/base/Dockerfile
 
   # Master Controller (RPyC)
   master_controller_rpyc:
@@ -20,22 +13,9 @@ services:
     build:
       context: sip/execution_control/master_controller/rpyc
       dockerfile: Dockerfile
-
-  # Master Controller (REST)
-  master_controller_rest:
-    image: skasip/master_rest
-    build:
-      context: sip/execution_control/master_controller/rest
-      dockerfile: Dockerfile
-
-#  # Processing Controller
-#  processing_controller:
-#    image: skasip/proc_control:${TAG}
-#    build:
-#      context: sip/execution_control/processing_controller/rpyc
-#      dockerfile: Dockerfile
-
-
+    ports:
+      - target: 12345     # port inside the container
+        published: 12345  # publicly exposed port
 
   # Master Controller (RPyC)
   quality_assessment_rpyc:
@@ -43,3 +23,6 @@ services:
     build:
       context: sip/sdp_services/quality_assessment/rpyc
       dockerfile: Dockerfile
+    ports:
+      - target: 12345     # port inside the container
+        published: 12346  # publicly exposed port

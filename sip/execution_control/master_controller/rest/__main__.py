@@ -39,7 +39,7 @@ def main():
     logger = logging.getLogger('MasterController')
     try:
         # Bind to TCP host/port (0.0.0.0 == bind to all IPv4 address)
-        bjoern.run(APP, host='0.0.0.0', port=12345)
+        bjoern.run(APP, host='0.0.0.0', port=5555)
     except OSError as error:
         logger.critical("ERROR: Unable to start healthcheck API: %s",
                         error.strerror)
