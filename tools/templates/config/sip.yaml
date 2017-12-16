@@ -12,7 +12,7 @@ sip:
     master_controller:
       title: Master Controller Service
 
-      rpc:
+      rpyc:
         title: Master Controller (RPyC flavour)
 
       tango:

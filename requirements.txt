@@ -1,0 +1,8 @@
+# Aggregated requirements for SIP core modules
+
+# For the health check endpoint (Master Controller, ...)
+bottle>=0.12.13
+bjoern>=2.0.1
+
+# For the RPyC interface (Master Controller, ...)
+rpyc>=3.3.0

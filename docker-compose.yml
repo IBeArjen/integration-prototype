@@ -1,0 +1,39 @@
+#
+# Usage:
+#   docker-compose build -e TAG=<latest> [service name]
+#
+
+version: '3.3'
+
+services:
+
+#  # SIP Base image
+#  sip_base:
+#    image: skasip/sip_base:${TAG}
+#    build:
+#      context: .
+#      dockerfile: docker/base/Dockerfile
+
+  # Master Controller (RPyC)
+  master_controller_rpyc:
+    image: skasip/master_rpyc
+    build:
+      context: sip/execution_control/master_controller/rpyc
+      dockerfile: Dockerfile
+
+#  # Master Controller (REST)
+#  master_controller_rest:
+#    image: skasip/master_rest
+#    build:
+#      context: sip/execution_control/master_controller/rest
+#      dockerfile: Dockerfile
+
+#  # Processing Controller
+#  processing_controller:
+#    image: skasip/proc_control:${TAG}
+#    build:
+#      context: sip/execution_control/processing_controller/rpyc
+#      dockerfile: Dockerfile
+
+
+

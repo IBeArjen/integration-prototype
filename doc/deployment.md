@@ -18,4 +18,56 @@ In deployment the SIP code falls into two categories:
 
 - **Capabilities**: Are the set of Pipeline Workflows *(see above)*
   or specialised applications that can be run by the system at a given time.
-  
+
+## Deployment with Docker
+
+### Using single Docker engine
+
+Build the SIP Docker images with:
+
+```bash
+docker-compose build
+```
+
+Run the SIP Master Controller (RPyC flavour) container:
+
+```bash
+docker run --rm -d -p12345:12345 skasip/master_rpyc
+```
+
+This can be tested with an experimental CLI script interfacing with the RPyC
+endpoints. This can be found in 
+`sip/execution_control/master_controller/rpyc/cli/`
+and can be run with the following command:
+
+```bash
+python3 sip/execution_control/master_controller/rpyc/cli/sip_master_cli.py
+```
+
+For arguments and options run the script with no arguments or use the `-h`
+flag.
+
+
+***TODO(BM)***
+1. Description of single engine stack using with  `docker-compose up -d`
+
+
+### Docker Swarm mode
+
+***TODO(BM)***
+
+### Useful docker commands
+
+To view logs from a running container:
+
+```bash
+docker logs [-f] CONATINER
+```
+
+To clean up dangling images:
+
+```bash
+docker image prune -f
+```
+
+

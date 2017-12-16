@@ -1,0 +1,4 @@
+# Requirements for master_controller/rpyc
+
+# For the RPyC interface
+rpyc>=3.3.0

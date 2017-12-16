@@ -1,0 +1,6 @@
+# Requirements for master_controller/rest
+
+# For the health check endpoint
+bottle>=0.12.13
+bjoern>=2.0.1
+
