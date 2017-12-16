@@ -1,0 +1,67 @@
+#
+# Usage:
+#   docker-compose -f docker-compose_elk.yml build [service name]
+#
+
+version: '3.3'
+
+services:
+
+  elasticsearch:
+    image: skasip/elasticsearch
+    build:
+      context: sip/platform_services/elk_logging/elasticsearch
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    environment:
+      ES_JAVA_OPTS: '-Xms256m -Xmx256m'
+      xpack.security.enabled: 'false'
+      xpack.monitoring.enabled: 'false'
+      xpack.graph.enabled: 'false'
+      xpack.watcher.enabled: 'false'
+    ports:
+      - target: 9200     # port inside the container
+        published: 9200  # publicly exposed port
+
+  logstash:
+    image: skasip/logstash
+    build:
+      context: sip/platform_services/elk_logging/logstash
+    ports:
+      - target: 5000     # port inside the container
+        published: 5000  # publicly exposed port
+
+  logspout:
+    image: skasip/logspout
+    build:
+      context: sip/platform_services/elk_logging/logspout
+    environment:
+      ROUTE_URIS: 'logstash://logstash:5000'
+
+  kibana:
+    image: skasip/kibana-logtrail
+    build:
+      context: sip/platform_services/elk_logging/kibana_logtrail
+    environment:
+      ELASTICSEARCH_URL: 'http://elasticsearch:9200'
+      XPACK_SECURITY_ENABLED: 'false'
+      XPACK_MONITORING_ENABLED: 'false'
+    ports:
+      - target: 5601     # port inside the container
+        published: 5601  # publicly exposed port
+
+  # Mock Service which spams print messages
+  mock_print_spammer:
+    image: skasip/mock_print_spammer
+    build:
+      context: sip/platform_services/elk_logging/print_spammer
+
+  # Mock Service which spams Python logging messages
+  mock_logging_spammer:
+    image: skasip/mock_logging_spammer
+    build:
+      context: sip/platform_services/elk_logging/logging_spammer
+
+volumes:
+  esdata:
+    driver: local

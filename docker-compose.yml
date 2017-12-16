@@ -7,7 +7,7 @@ version: '3.3'
 
 services:
 
-  # Master Controller (RPyC)
+  # Master Controller Service (RPyC)
   master_controller_rpyc:
     image: skasip/master_rpyc
     build:
@@ -17,7 +17,7 @@ services:
       - target: 12345     # port inside the container
         published: 12345  # publicly exposed port
 
-  # Master Controller (RPyC)
+  # Quality Assessment Service (RPyC)
   quality_assessment_rpyc:
     image: skasip/qa_rpyc
     build:
@@ -26,3 +26,5 @@ services:
     ports:
       - target: 12345     # port inside the container
         published: 12346  # publicly exposed port
+
+

@@ -20,8 +20,7 @@ START_TIME = time()
 def health_check():
     """Health check endpoint."""
     return dict(module='Master Controller',
-                hostname=socket.gethostname(),
-                uptime=time() - START_TIME)
+                hostname=socket.gethostname(), uptime=time() - START_TIME)
 
 
 @APP.route('/')
@@ -30,8 +29,7 @@ def get_state():
     """Get the SDP state."""
     states = ['OFF', 'INIT', 'STANDBY', 'ON', 'DISABLE', 'FAULT', 'ALARM',
               'UNKNOWN']
-    return dict(module='Master Controller',
-                state=random.choice(states))
+    return dict(module='Master Controller', state=random.choice(states))
 
 
 def main():
@@ -41,7 +39,7 @@ def main():
         # Bind to TCP host/port (0.0.0.0 == bind to all IPv4 address)
         bjoern.run(APP, host='0.0.0.0', port=5555)
     except OSError as error:
-        logger.critical("ERROR: Unable to start healthcheck API: %s",
+        logger.critical("ERROR: Unable to start health check API: %s",
                         error.strerror)
     except KeyboardInterrupt:
         logger.info('Terminated Master Controller!')
