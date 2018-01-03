@@ -1,23 +1,21 @@
 # -*- coding: utf-8 -*-
-"""CLI to the Master Controller (RPyC flavour)"""
+"""CLI to the Master Controller (REST flavour)"""
 import logging
 import argparse
-import rpyc
+import requests
+import json
 
 
 class MasterControllerClient:
+
     def __init__(self, host, port):
         """Create a Master Controller client.
 
         Args:
-            host (str): Master Controller RPyC Server host.
-            port (int): Master Controller RPyC Server port.
+            host (str): Master Controller Server host.
+            port (int): Master Controller Server port.
         """
-        logger = logging.getLogger('MasterControllerClient')
-        try:
-            self._connection = rpyc.connect(host, port)
-        except ConnectionRefusedError as error:
-            logger.critical('ERROR: Unable to connect!, %s', error.strerror)
+        self._url = 'http://{}:{}'.format(host, port)
 
     def command(self, command, *args):
         """Issue a command to the Master Controller."""
@@ -40,12 +38,15 @@ class MasterControllerClient:
     def get_health(self):
         """Print the Master Controller health."""
         logger = logging.getLogger('MasterControllerClient')
-        logger.info('Health = %s', self._connection.root.health_check())
+        health = json.loads(requests.get(self._url + '/healthcheck').text)
+        logger.info('Health:', extra={'detail': json.dumps(health, indent=2)})
 
     def get_state(self):
         """Print the Master Controller state."""
         logger = logging.getLogger('MasterControllerClient')
-        logger.info('State = %s', self._connection.root.get_state())
+        response = requests.get(self._url)
+        state = json.loads(response.text)
+        logger.info('State:', extra={'detail': json.dumps(state, indent=2)})
 
     def set_state(self, state):
         """Sets the state."""
@@ -53,13 +54,15 @@ class MasterControllerClient:
         assert state.isalpha()
         state = state.upper()
         logger.info('Setting state to %s', state)
-        if not self._connection.root.set_state(state):
-            logger.error('Unable to set state to %s', state)
+        response = requests.get(self._url + '/set_state/{}'.format(state))
+        response = json.loads(response.text)
+        logger.info('State:', extra={'detail': json.dumps(response, indent=2)})
 
     def processing_blocks(self,):
         """Return a lit of proccessing blocks."""
         logger = logging.getLogger('MasterControllerClient')
-        block_info = self._connection.root.processing_blocks()
+        block_info = requests.get(self._url + '/processing_blocks').text
+        block_info = json.loads(block_info)
         logger.info('Block count = %i', block_info['count'])
         for block_id in block_info['block_ids']:
             logger.info('- %i', block_id)
@@ -67,31 +70,27 @@ class MasterControllerClient:
     def new_processing_block(self, json_request):
         """Process processing block commands."""
         logger = logging.getLogger('MasterControllerClient')
-        logger.info('Requesting new processing block')
-        response = self._connection.root.new_processing_block(json_request)
-        if 'id' in response:
-            logger.info('Processing block created with id = %i',
-                        response['id'])
-        else:
-            logger.error('Failed to create processing block.')
+        response = requests.post(self._url + '/processing_block/new',
+                                 json=json.loads(json_request))
+        response = json.loads(response.text)
+        logger.info('Created new processing block',
+                    extra={'detail': json.dumps(response, indent=2)})
 
     def get_processing_block(self, identifier):
         """Get information on the processing block with the specified id."""
         logger = logging.getLogger('MasterControllerClient')
-        response = self._connection.root.processing_block(identifier)
-        if 'id' in response:
-            logger.info(response)
-        else:
-            logger.error(response)
+        response = requests.get(self._url +
+                                '/processing_block/{}'.format(identifier))
+        response = json.dumps(json.loads(response.text), indent=2)
+        logger.info('Processing block info:', extra={'detail': response})
 
     def delete_processing_block(self, identifier):
         """Removes a processing block."""
         logger = logging.getLogger('MasterControllerClient')
-        reponse = self._connection.root.delete_processing_block(identifier)
-        if 'id' in reponse:
-            logger.info(reponse)
-        else:
-            logger.error(reponse)
+        response = requests.get(self._url + '/processing_block/delete/{}'.
+                                format(identifier))
+        response = json.dumps(json.loads(response.text), indent=2)
+        logger.info('Delete processing block:', extra={'detail': response})
 
 
 def main():
@@ -99,11 +98,11 @@ def main():
     # Handle command line arguments
     parser = argparse.ArgumentParser(description='Master Controller CLI')
     parser.add_argument('--host', nargs='?', default='localhost', type=str,
-                        help='Master Controller RPyC Server host '
+                        help='Master Controller Server host '
                              '(default=localhost)')
-    parser.add_argument('--port', nargs='?', default=12345, type=int,
-                        help='Master Controller RPyC Server port '
-                             '(default=12345)')
+    parser.add_argument('--port', nargs='?', default=5555, type=int,
+                        help='Master Controller Server port '
+                             '(default=5555)')
     parser.add_argument('COMMAND', choices=['state',
                                             'health',
                                             'set_state',
@@ -120,13 +119,23 @@ def main():
     client.command(args.COMMAND, *args.ARGS)
 
 
+class CustomFilter(logging.Filter):
+    def filter(self, record):
+        if hasattr(record, 'detail') and len(record.detail) > 0:
+            record.detail = '\n' + record.detail
+        else:
+            record.detail = ''
+        return super(CustomFilter, self).filter(record)
+
+
 if __name__ == '__main__':
-    LOG = logging.getLogger()
+    LOG = logging.getLogger('MasterControllerClient')
     HANDLER = logging.StreamHandler()
-    FORMAT_STR = "> [%(levelname).1s] %(message)-80s " \
-                 "(%(name)s:L%(lineno)i) [%(asctime)s]"
+    FORMAT_STR = '> [%(levelname).1s] %(message)-80s ' \
+                 '(%(name)s:L%(lineno)i) [%(asctime)s]%(detail)s'
     HANDLER.setFormatter(logging.Formatter(FORMAT_STR, '%H:%M:%S'))
     HANDLER.setLevel(logging.DEBUG)
+    LOG.addFilter(CustomFilter())
     LOG.setLevel(logging.DEBUG)
     LOG.addHandler(HANDLER)
     main()

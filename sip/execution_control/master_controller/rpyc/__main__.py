@@ -18,6 +18,9 @@ START_TIME = time()
 class MasterControllerService(rpyc.Service):
     """RPyC service for the Master Controller."""
 
+    states = ['OFF', 'INIT', 'STANDBY', 'ON', 'DISABLE', 'FAULT', 'ALARM',
+              'UNKNOWN']
+
     def __init__(self, *args):
         """Constructor."""
         super().__init__(*args)
@@ -38,12 +41,64 @@ class MasterControllerService(rpyc.Service):
                     hostname=socket.gethostname(),
                     uptime=time() - START_TIME)
 
-    @staticmethod
-    def exposed_get_state():
+    def exposed_get_state(self):
         """Return the SDP state."""
-        states = ['OFF', 'INIT', 'STANDBY', 'ON', 'DISABLE', 'FAULT', 'ALARM',
-                  'UNKNOWN']
-        return random.choice(states)
+        return random.choice(self.states)
+
+    def exposed_set_state(self, state):
+        """Sets the SDP state.
+
+        Args:
+            state (str): The state to set.
+
+        Returns:
+            (bool) True if successful, otherwise False.
+        """
+        if state not in self.states:
+            return False
+        else:
+            return True
+
+    @staticmethod
+    def exposed_processing_blocks():
+        """Return a list of processing blocks."""
+        block_ids = [random.randrange(0, 100)
+                     for _ in range(random.randint(0, 10))]
+        return dict(count=len(block_ids), block_ids=sorted(block_ids))
+
+    @staticmethod
+    def exposed_new_processing_block(request):
+        """Creates a new processing block matching the specified request
+
+        Args:
+            request (str): JSON string with the processing block request.
+
+        Returns:
+            (dict) Request response
+        """
+        if random.choice([True, False]):
+            return dict(id=random.randint(0, 1000),
+                        request=request)
+        else:
+            return dict(error='Unable to create processing block.',
+                        request=request)
+
+    @staticmethod
+    def exposed_processing_block(identifier):
+        """Returns information on a processing block."""
+        if random.choice([True, False]):
+            return dict(error='Unable to find processing block')
+        else:
+            states = ['INIT', 'RUNNING', 'FINISHED']
+            return dict(id=identifier, state=random.choice(states))
+
+    @staticmethod
+    def exposed_delete_processing_block(identifier):
+        """Removes a processing block."""
+        if random.choice([True, False]):
+            return dict(error='Unable to find processing block')
+        else:
+            return dict(id=identifier, message='Removed processing block.')
 
 
 def main():

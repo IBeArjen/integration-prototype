@@ -6,3 +6,6 @@ bjoern>=2.0.1
 
 # For the RPyC interface (Master Controller, ...)
 rpyc>=3.3.0
+
+# For REST clients
+requests>=2.18.4

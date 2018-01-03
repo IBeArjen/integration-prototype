@@ -29,5 +29,9 @@ HEALTHCHECK --interval=15s --timeout=2s --start-period=5s --retries=2 \
     CMD curl -f http://localhost:5555/healthcheck || exit 1
 
 # Entrypoint (command that is run by default)
-ENTRYPOINT ["python3", "-m", "sip.master"]
+# ENTRYPOINT ["python3", "-m", "sip.master"]
+ENTRYPOINT ["python3", "-m", "bottle", \
+            "--server", "bjoern", \
+            "--bind", "0.0.0.0:5555", \
+            "sip.master.__main__:APP"]
 
