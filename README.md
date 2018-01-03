@@ -17,6 +17,8 @@ of the major components of the SDP system. The focus of this prototype is to:
 
 ## The SIP code
 
+***TODO(BM): Revise this description***
+
 SIP consists of two main categories of components:
 
 1. A set of services which for control, monitoring and other persistent
@@ -32,6 +34,8 @@ is under active review and is likely to change in the short term (~weeks).
 
 
 ## Requirements
+
+***TODO(BM): Revise this description***
 
 The SIP code required Python 3.5+ and has a number of dependencies which are
 listed in the `requirements.txt` file in the top level of the build tree.
@@ -50,9 +54,7 @@ the Master Controller.
 
 ## Running SIP
 
-TODO(BM) Create a branch to update this doc. Brief doc here with additional 
-details in the sphinx? 
-
+TODO(BM)
 
 
 
