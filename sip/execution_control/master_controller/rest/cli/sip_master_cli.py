@@ -23,7 +23,10 @@ class MasterControllerClient:
         commands = {
             'health': self.get_health,
             'state': self.get_state,
-            'set_state': self.set_state,
+            'init': self.init,
+            'standby': self.standby,
+            'disable': self.disable,
+            'online': self.online,
             'processing_blocks': self.processing_blocks,
             'new_processing_block': self.new_processing_block,
             'processing_block': self.get_processing_block,
@@ -33,33 +36,53 @@ class MasterControllerClient:
             logger.error('Command "%s" not registered with the CLI.',
                          command)
             return None
+        if command == 'new_processing_block':
+            if len(args) == 0:
+                args = ['{}']
         commands[command](*args)
 
     def get_health(self):
         """Print the Master Controller health."""
         logger = logging.getLogger('MasterControllerClient')
-        health = json.loads(requests.get(self._url + '/healthcheck').text)
-        logger.info('Health:', extra={'detail': json.dumps(health, indent=2)})
+        response = json.loads(requests.get(self._url + '/healthcheck'))
+        logger.info('Response:', extra={'detail': response.text})
 
     def get_state(self):
         """Print the Master Controller state."""
         logger = logging.getLogger('MasterControllerClient')
         response = requests.get(self._url)
-        state = json.loads(response.text)
-        logger.info('State:', extra={'detail': json.dumps(state, indent=2)})
+        logger.info('Response:', extra={'detail': response.text})
 
-    def set_state(self, state):
-        """Sets the state."""
+    def init(self):
+        """Triggers the INIT state."""
         logger = logging.getLogger('MasterControllerClient')
-        assert state.isalpha()
-        state = state.upper()
-        logger.info('Setting state to %s', state)
-        response = requests.get(self._url + '/set_state/{}'.format(state))
-        response = json.loads(response.text)
-        logger.info('State:', extra={'detail': json.dumps(response, indent=2)})
+        logger.info('Triggering the INIT state')
+        response = requests.get(self._url + '/init')
+        logger.info('Response:', extra={'detail': response.text})
+
+    def standby(self):
+        """Triggers the STANDBY state."""
+        logger = logging.getLogger('MasterControllerClient')
+        logger.info('Triggering the STANDBY state')
+        response = requests.get(self._url + '/standby')
+        logger.info('Response:', extra={'detail': response.text})
+
+    def disable(self):
+        """Triggers the DISABLE state."""
+        logger = logging.getLogger('MasterControllerClient')
+        logger.info('Triggering the DISABLE state')
+        response = requests.get(self._url + '/disable')
+        logger.info('Response:', extra={'detail': response.text})
+
+    def online(self):
+        """Triggers the ON state."""
+        logger = logging.getLogger('MasterControllerClient')
+        logger.info('Triggering the ON state')
+        response = requests.get(self._url + '/on')
+        logger.info('Response:', extra={'detail': response.text})
 
     def processing_blocks(self,):
-        """Return a lit of proccessing blocks."""
+        """Return a list of processing blocks."""
         logger = logging.getLogger('MasterControllerClient')
         block_info = requests.get(self._url + '/processing_blocks').text
         block_info = json.loads(block_info)
@@ -72,25 +95,22 @@ class MasterControllerClient:
         logger = logging.getLogger('MasterControllerClient')
         response = requests.post(self._url + '/processing_block/new',
                                  json=json.loads(json_request))
-        response = json.loads(response.text)
         logger.info('Created new processing block',
-                    extra={'detail': json.dumps(response, indent=2)})
+                    extra={'detail': response.text})
 
     def get_processing_block(self, identifier):
         """Get information on the processing block with the specified id."""
         logger = logging.getLogger('MasterControllerClient')
         response = requests.get(self._url +
                                 '/processing_block/{}'.format(identifier))
-        response = json.dumps(json.loads(response.text), indent=2)
-        logger.info('Processing block info:', extra={'detail': response})
+        logger.info('Processing block info:', extra={'detail': response.text})
 
     def delete_processing_block(self, identifier):
         """Removes a processing block."""
         logger = logging.getLogger('MasterControllerClient')
         response = requests.get(self._url + '/processing_block/delete/{}'.
                                 format(identifier))
-        response = json.dumps(json.loads(response.text), indent=2)
-        logger.info('Delete processing block:', extra={'detail': response})
+        logger.info('Delete processing block:', extra={'detail': response.text})
 
 
 def main():
@@ -105,7 +125,10 @@ def main():
                              '(default=5555)')
     parser.add_argument('COMMAND', choices=['state',
                                             'health',
-                                            'set_state',
+                                            'init',
+                                            'standby',
+                                            'disable',
+                                            'online',
                                             'processing_blocks',
                                             'new_processing_block',
                                             'processing_block',

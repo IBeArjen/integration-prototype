@@ -1,8 +1,8 @@
 # Requirements for master_controller/rest
 
 # For the REST endpoint
-bottle>=0.12.13
-bjoern>=2.0.1
+Flask>=0.12.2
+gunicorn>=19.7.1
 
 # For the REST CLI client
 requests>=2.18.4
