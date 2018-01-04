@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """CLI to the Master Controller (REST flavour)"""
-import logging
 import argparse
-import requests
 import json
+import logging
+
+import requests
 
 
 class MasterControllerClient:

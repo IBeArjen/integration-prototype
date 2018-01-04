@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """CLI to the Master Controller (RPyC flavour)"""
-import logging
 import argparse
+import logging
+
 import rpyc
 
 
@@ -25,7 +26,10 @@ class MasterControllerClient:
         commands = {
             'health': self.get_health,
             'state': self.get_state,
-            'set_state': self.set_state,
+            'init': self.init,
+            'standby': self.standby,
+            'disable': self.disable,
+            'online': self.online,
             'processing_blocks': self.processing_blocks,
             'new_processing_block': self.new_processing_block,
             'processing_block': self.get_processing_block,
@@ -47,14 +51,29 @@ class MasterControllerClient:
         logger = logging.getLogger('MasterControllerClient')
         logger.info('State = %s', self._connection.root.get_state())
 
-    def set_state(self, state):
-        """Sets the state."""
+    def init(self):
+        """Triggers the INIT state."""
         logger = logging.getLogger('MasterControllerClient')
-        assert state.isalpha()
-        state = state.upper()
-        logger.info('Setting state to %s', state)
-        if not self._connection.root.set_state(state):
-            logger.error('Unable to set state to %s', state)
+        logger.info('Setting INIT state.')
+        self._connection.root.init()
+
+    def standby(self):
+        """Triggers the STANDBY state."""
+        logger = logging.getLogger('MasterControllerClient')
+        logger.info('Setting STANDBY state.')
+        self._connection.root.standby()
+
+    def disable(self):
+        """Triggers the DISABLE state."""
+        logger = logging.getLogger('MasterControllerClient')
+        logger.info('Setting DISABLE state.')
+        self._connection.root.disable()
+
+    def online(self):
+        """Triggers the ONLINE state."""
+        logger = logging.getLogger('MasterControllerClient')
+        logger.info('Setting ONLINE state.')
+        self._connection.root.online()
 
     def processing_blocks(self,):
         """Return a lit of proccessing blocks."""
@@ -106,7 +125,10 @@ def main():
                              '(default=12345)')
     parser.add_argument('COMMAND', choices=['state',
                                             'health',
-                                            'set_state',
+                                            'init',
+                                            'standby',
+                                            'disable',
+                                            'online',
                                             'processing_blocks',
                                             'new_processing_block',
                                             'processing_block',

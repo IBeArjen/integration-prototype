@@ -45,19 +45,25 @@ class MasterControllerService(rpyc.Service):
         """Return the SDP state."""
         return random.choice(self.states)
 
-    def exposed_set_state(self, state):
-        """Sets the SDP state.
+    @staticmethod
+    def exposed_init():
+        """Triggers transition to INIT state."""
+        return True
 
-        Args:
-            state (str): The state to set.
+    @staticmethod
+    def exposed_standby():
+        """Triggers transition to STANDBY state."""
+        return True
 
-        Returns:
-            (bool) True if successful, otherwise False.
-        """
-        if state not in self.states:
-            return False
-        else:
-            return True
+    @staticmethod
+    def exposed_disable():
+        """Triggers transition to DISABLE state."""
+        return True
+
+    @staticmethod
+    def exposed_online():
+        """Triggers transition to ONLINE state."""
+        return True
 
     @staticmethod
     def exposed_processing_blocks():
