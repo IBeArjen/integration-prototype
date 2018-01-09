@@ -1,0 +1,26 @@
+#
+# Execution control Docker compose file
+#
+# docker-compose -f sip/execution_control/docker-compose.yml [build|up|down] [-d]
+#
+version: '3.4'
+
+services:
+
+  master:
+    image: skasip/master_rest
+    ports:
+      - 5555:5555
+    deploy:
+      replicas: 2
+    depends_on:
+      - master_contoller_db
+
+  master_db:
+    image: skasip/master_db
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
+

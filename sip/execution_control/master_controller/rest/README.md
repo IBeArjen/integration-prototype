@@ -23,3 +23,13 @@ It implements the "Master Controller" component of the SDP architecture.
 
 ## Dependencies
 
+
+## References
+
+- <http://flask.pocoo.org/>
+- <https://flask-restful.readthedocs.io/en/latest/index.html>
+- <http://gunicorn.org/>
+    - <http://gunicorn.org/#deployment>
+- <http://nginx.org>
+    - <https://www.nginx.com/blog/introduction-to-microservices/>
+- <https://content.pivotal.io/blog/understanding-when-to-use-rabbitmq-or-apache-kafka>

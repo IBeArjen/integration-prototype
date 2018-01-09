@@ -11,10 +11,10 @@ line 204 `def create_ingest(self)`.
 {
     "receive": {
         "streams": [
-            { "host": "127.0.0.1", "port": 2001 },
-            { "host": "ingest-01", "port": 2001 },
-            { "host": "ingest-01", "port": 2002 },
-            { "host": "ingest-02", "port": 2001 }
+            { "port": 2001 },
+            { "port": 2001 },
+            { "port": 2002 },
+            { "port": 2001 }
         ],
     },
     "demix": { 

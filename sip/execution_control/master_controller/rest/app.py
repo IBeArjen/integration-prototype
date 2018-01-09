@@ -1,22 +1,23 @@
 # -*- coding: utf-8 -*-
 """SDP Element Master (REST flavour).
 
-Run with:
-    gunicorn -b 0.0.0.0:5555 --reload \
-        sip.execution_control.master_controller.rest.app:APP
+Run with (from the rest directory):
+    gunicorn -b 0.0.0.0:5555 --reload app:APP
 
 .. moduleauthor:: Benjamin Mort <benjamin.mort@oerc.ox.ac.uk>
 """
 
-import logging
 import random
 import socket
 from time import time
 
+import redis
 from flask import Flask, jsonify, request
 
 
 APP = Flask('MasterController')
+MC_STATES = ['OFF', 'INIT', 'STANDBY', 'ON', 'DISABLE', 'FAULT', 'ALARM',
+             'UNKNOWN']
 START_TIME = time()
 
 
@@ -32,14 +33,36 @@ def not_found(error=None):
     return response
 
 
+@APP.errorhandler(405)
+def not_allowed(error=None):
+    """Handler for URL method not allowed."""
+    message = {
+        'status': 405,
+        'message': 'Method not allowed.'
+    }
+    if error:
+        message['error'] = error
+    response = jsonify(message)
+    response.status_code = 405
+    return response
+
+
 @APP.route('/')
 @APP.route('/state')
 def get_state():
     """Get the SDP state."""
-    states = ['OFF', 'INIT', 'STANDBY', 'ON', 'DISABLE', 'FAULT', 'ALARM',
-              'UNKNOWN']
-    response = jsonify(module='Master Controller', state=random.choice(states))
-    return response
+    message = {
+        'module': 'Master Controller',
+        'state': random.choice(MC_STATES)
+    }
+    # Add the query count to the message (if possible)
+    try:
+        data = redis.Redis(host='master_db')
+        counter = data.incr('counter')
+        message['counter'] = counter
+    except redis.exceptions.ConnectionError:
+        pass
+    return jsonify(message)
 
 
 @APP.route('/health')
@@ -53,6 +76,11 @@ def health_check():
 @APP.route('/init')
 def init():
     """Triggers transition to INIT state."""
+    try:
+        data = redis.Redis(host='master_db')
+        data.delete('counter')
+    except redis.exceptions.ConnectionError:
+        pass
     return jsonify(module='Master Controller',
                    message='Setting state to INIT.')
 
@@ -87,11 +115,14 @@ def processing_blocks():
     return jsonify(count=len(block_ids), block_ids=sorted(block_ids))
 
 
-@APP.route('/processing_block/new', methods=['POST'])
+@APP.route('/new_processing_block', methods=['POST', 'GET'])
 def new_processing_block():
     """Creates a new processing block."""
-    request_data = request.get_json(silent=False)
-    return jsonify(block_id=random.randint(0, 1000), request=request_data)
+    if request.method == 'GET':
+        return not_allowed(error='GET method not availble for this route.')
+    elif request.method == 'POST':
+        request_data = request.get_json(silent=False)
+        return jsonify(block_id=random.randint(0, 1000), request=request_data)
 
 
 @APP.route('/processing_block/<block_id>')
@@ -105,7 +136,7 @@ def get_processing_block(block_id):
     return jsonify(block_id=block_id, state=random.choice(states))
 
 
-@APP.route('/processing_block/delete/<block_id>')
+@APP.route('/delete_processing_block/<block_id>')
 def delete_processing_block(block_id):
     """Removes a processing block."""
     if random.choice([True, False]):
@@ -144,29 +175,5 @@ def capacity():
                    ingest_time=random.randint(0, 3600 * 20))
 
 
-def main():
-    """Master Controller main function."""
-    logger = logging.getLogger('MasterController')
-    # try:
-    #     # Bind to TCP host/port (0.0.0.0 == bind to all IPv4 address)
-    #     bjoern.run(APP, host='0.0.0.0', port=5555)
-    # except OSError as error:
-    #     logger.critical("ERROR: Unable to start health check API: %s",
-    #                     error.strerror)
-    # except KeyboardInterrupt:
-    #     logger.info('Terminated Master Controller!')
-    APP.run(debug=True)
-
-
 if __name__ == "__main__":
-    LOG = logging.getLogger()
-    HANDLER = logging.StreamHandler()
-    FORMAT_STR = "> [%(levelname).1s] %(message)-80s " \
-                 "(%(name)s:L%(lineno)i) [%(asctime)s]"
-    HANDLER.setFormatter(logging.Formatter(FORMAT_STR, '%H:%M:%S'))
-    HANDLER.setLevel(logging.DEBUG)
-    LOG.setLevel(logging.DEBUG)
-    LOG.addHandler(HANDLER)
-    main()
-
-
+    APP.run(debug=True)

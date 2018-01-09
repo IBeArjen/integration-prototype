@@ -7,16 +7,8 @@ LABEL maintainer="Benjamin Mort <ben.mort@gmail.com>"
 # Copy python requirements file
 COPY requirements.txt /app/requirements.txt
 
-#RUN apk update && \
-#    apk add --no-cache --virtual build-dependencies g++ libev-dev && \
-#    apk add --no-cache libstdc++ curl libev && \
-#    pip install -r /app/requirements.txt && \
-#    find /usr/local/lib/python3.6/ -name 'tests' -exec rm -r '{}' + && \
-#    rm -r /root/.cache && \
-#    apk del build-dependencies
-
 RUN apk update && \
-    pip install -r /app/requirements.txt && \
+    pip install --no-cache-dir -r /app/requirements.txt && \
     apk add --no-cache curl && \
     find /usr/local/lib/python3.6/ -name 'tests' -exec rm -r '{}' + && \
     rm -r /root/.cache

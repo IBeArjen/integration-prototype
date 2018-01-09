@@ -1,0 +1,23 @@
+#
+# https://medium.com/@tonywangcn/how-to-build-docker-cluster-with-celery-and-rabbitmq-in-10-minutes-13fc74d21730
+#
+# https://content.pivotal.io/blog/understanding-when-to-use-rabbitmq-or-apache-kafka
+#
+
+version: '3.4'
+
+services:
+
+  rabbit:
+    image: rabbitmq:3.7.2-alpine
+    hostname: rabbit_host
+    container_name: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=mypass
+    ports:
+      - 5672:5672
+
+
+
+

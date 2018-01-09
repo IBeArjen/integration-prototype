@@ -2,7 +2,14 @@
 
 # For the REST endpoint
 Flask>=0.12.2
+Flask-RESTful>=0.3.6
 gunicorn>=19.7.1
+
+# For the MC db
+redis>=2.10.6
 
 # For the REST CLI client
 requests>=2.18.4
+
+# unit test runner
+nose2>=0.7.3

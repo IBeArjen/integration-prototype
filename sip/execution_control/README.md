@@ -28,6 +28,38 @@ resolving. In particular, whether monitoring and logging
 services should be sub-packages here, or the other packages noted 
 in the previous sentence.***
 
+## Deployment
+
+```bash
+docker-compose -f sip/execution_control/docker-compose.yml [-f override.yml] build
+```
+
+```bash
+docker-compose -f sip/execution_control/docker-compose.yml [-f override.yml] up -d
+```
+
+```bash
+docker-compose -f sip/execution_control/docker-compose.yml [-f override.yml] down
+```
+
+Combine docker-compose override files to create a single docker stack bundle file:
+
+bundles don't support volume mounting ... :(
+
+*must first push to dockerhub?*
+```bash
+docker login ...
+docker push skasip/....
+```
+
+```bash
+docker-compose -f sip/execution_control/docker-compose.yml [-f override.yml] bundle -o myfile.dab 
+```
+
+```bash
+docker stack deploy --bundle-file myfile.dab mystack
+```
+
 
 ## Reference figures
 

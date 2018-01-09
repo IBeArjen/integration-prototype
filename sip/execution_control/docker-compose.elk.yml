@@ -7,6 +7,17 @@ version: '3.3'
 
 services:
 
+  kibana:
+    image: skasip/kibana-logtrail
+    build:
+      context: sip/platform_services/elk_logging/kibana_logtrail
+    environment:
+      ELASTICSEARCH_URL: 'http://elasticsearch:9200'
+      XPACK_SECURITY_ENABLED: 'false'
+      XPACK_MONITORING_ENABLED: 'false'
+    ports:
+      - 5601:5601
+
   elasticsearch:
     image: skasip/elasticsearch
     build:
@@ -20,8 +31,12 @@ services:
       xpack.graph.enabled: 'false'
       xpack.watcher.enabled: 'false'
     ports:
-      - target: 9200     # port inside the container
-        published: 9200  # publicly exposed port
+      - 9200:9200
+
+  redis:
+    image: redis:4.0.6-alpine
+    ports:
+      - 6379:6379
 
   logstash:
     image: skasip/logstash
@@ -38,17 +53,6 @@ services:
     environment:
       ROUTE_URIS: 'logstash://logstash:5000'
 
-  kibana:
-    image: skasip/kibana-logtrail
-    build:
-      context: sip/platform_services/elk_logging/kibana_logtrail
-    environment:
-      ELASTICSEARCH_URL: 'http://elasticsearch:9200'
-      XPACK_SECURITY_ENABLED: 'false'
-      XPACK_MONITORING_ENABLED: 'false'
-    ports:
-      - target: 5601     # port inside the container
-        published: 5601  # publicly exposed port
 
   # Mock Service which spams print messages
   mock_print_spammer:

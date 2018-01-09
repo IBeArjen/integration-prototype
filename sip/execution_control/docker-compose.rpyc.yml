@@ -1,0 +1,14 @@
+#
+# Execution control REST flavour overrides
+#
+# docker-compose -f sip/execution_control/docker-compose.yml \
+#     sip/execution_control/docker-compose.rest.yml [build|up|down] [-d]
+#
+version: '3.4'
+
+services:
+
+  master:
+    ports:
+      - 5555:5555
+    build: master_controller/rpyc

@@ -8,6 +8,7 @@ import requests
 
 
 class MasterControllerClient:
+    """CLI client for the Master Controller (REST variant)."""
 
     def __init__(self, host, port):
         """Create a Master Controller client.
@@ -34,11 +35,10 @@ class MasterControllerClient:
             'delete_processing_block': self.delete_processing_block
         }
         if command not in commands:
-            logger.error('Command "%s" not registered with the CLI.',
-                         command)
-            return None
+            logger.error('Command "%s" not registered with the CLI.', command)
+            return
         if command == 'new_processing_block':
-            if len(args) == 0:
+            if not args:
                 args = ['{}']
         commands[command](*args)
 
@@ -94,7 +94,7 @@ class MasterControllerClient:
     def new_processing_block(self, json_request):
         """Process processing block commands."""
         logger = logging.getLogger('MasterControllerClient')
-        response = requests.post(self._url + '/processing_block/new',
+        response = requests.post(self._url + '/new_processing_block',
                                  json=json.loads(json_request))
         logger.info('Created new processing block',
                     extra={'detail': response.text})
@@ -109,7 +109,7 @@ class MasterControllerClient:
     def delete_processing_block(self, identifier):
         """Removes a processing block."""
         logger = logging.getLogger('MasterControllerClient')
-        response = requests.get(self._url + '/processing_block/delete/{}'.
+        response = requests.get(self._url + '/delete_processing_block/{}'.
                                 format(identifier))
         logger.info('Delete processing block:', extra={'detail': response.text})
 
