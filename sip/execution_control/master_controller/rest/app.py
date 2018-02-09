@@ -69,42 +69,65 @@ def get_state():
 @APP.route('/healthcheck')
 def health_check():
     """Health check endpoint."""
+    message = {
+        'module': 'Master Controller',
+        'hostname': socket.gethostname(),
+        'uptime': (time() - START_TIME)
+    }
+    # Count how many times the health check has been called
+    try:
+        data = redis.Redis(host='master_db')
+        counter = data.incr('health_counter')
+        message['counter'] = counter
+    except redis.exceptions.ConnectionError:
+        pass
+    return jsonify(message)
+
+
+@APP.route('/on')
+@APP.route('/online')
+def command_on():
+    """SCM defined command to triggers transition to ON state."""
     return jsonify(module='Master Controller',
-                   hostname=socket.gethostname(), uptime=time() - START_TIME)
+                   message='Setting state to ON.')
 
 
 @APP.route('/init')
-def init():
-    """Triggers transition to INIT state."""
+def command_init():
+    """SCM defined command to trigger transition to INIT state.
+
+    This will reset of reinitialise the SDP?!
+    """
     try:
         data = redis.Redis(host='master_db')
         data.delete('counter')
+        data.delete('health_counter')
     except redis.exceptions.ConnectionError:
         pass
     return jsonify(module='Master Controller',
                    message='Setting state to INIT.')
 
 
-@APP.route('/standby')
-def standby():
-    """Triggers transition to STANDBY state."""
-    return jsonify(module='Master Controller',
-                   message='Setting state to STANDBY.')
-
-
 @APP.route('/disable')
-def disable():
-    """Triggers transition to DISABLE state."""
+def command_disable():
+    """SCM defined command to trigger transition to DISABLE state."""
     return jsonify(module='Master Controller',
                    message='Setting state to DISABLE.')
 
 
-@APP.route('/on')
-@APP.route('/online')
-def on():
-    """Triggers transition to ON state."""
+@APP.route('/standby')
+def command_standby():
+    """SCM defined command to triggers transition to STANDBY state."""
     return jsonify(module='Master Controller',
-                   message='Setting state to ON.')
+                   message='Setting state to STANDBY.')
+
+
+@APP.route('/shutdown')
+@APP.route('/off')
+def command_shut_down():
+    """SCM defined command to triggers transition to SHUTDOWN state."""
+    return jsonify(module='Master Controller',
+                   message='Setting state to SHUTDOWN.')
 
 
 @APP.route('/processing_blocks')
